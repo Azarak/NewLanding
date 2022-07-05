@@ -78,7 +78,7 @@
 	else
 		state_to_use = clear_floor_overlay
 	if(state_to_use)
-		. += mutable_appearance(icon, state_to_use, plane = FLOOR_PLANE, layer = ROOF_LAYER)
+		. += mutable_appearance(icon, state_to_use, plane = FLOOR_PLANE, layer = ABOVE_NORMAL_TURF_LAYER)
 
 /obj/structure/obstruction/Initialize()
 	. = ..()

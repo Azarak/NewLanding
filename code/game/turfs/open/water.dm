@@ -5,7 +5,7 @@
 	icon = 'icons/turf/floors/common.dmi'
 	icon_state = "water"
 	baseturfs = /turf/open/water
-	slowdown = 1
+	slowdown = 2
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null //needs a splashing sound one day.
 
