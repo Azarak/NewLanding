@@ -204,7 +204,7 @@
 /datum/component/material_container/proc/can_hold_material(datum/material/mat)
 	if(mat in allowed_materials)
 		return TRUE
-	if(istype(mat) && ((mat.id in allowed_materials) || (mat.type in allowed_materials)))
+	if(istype(mat) && ((mat.type in allowed_materials) || (mat.type in allowed_materials)))
 		allowed_materials += mat // This could get messy with passing lists by ref... but if you're doing that the list expansion is probably being taken care of elsewhere anyway...
 		return TRUE
 	if(insertion_check?.Invoke(mat))
@@ -348,12 +348,6 @@
 			if(ispath(req_mat)) //Is this an actual material, or is it a category?
 				req_mat = GET_MATERIAL_REF(req_mat) //Get the ref
 
-			else // Its a category. (For example MAT_CATEGORY_RIGID)
-				if(!has_enough_of_category(req_mat, mats[x], multiplier)) //Do we have enough of this category?
-					return FALSE
-				else
-					continue
-
 		if(!has_enough_of_material(req_mat, mats[x], multiplier))//Not a category, so just check the normal way
 			return FALSE
 
@@ -376,14 +370,6 @@
 	if(materials[req_mat] >= amount_required) // do we have enough of the resource?
 		return TRUE
 	return FALSE //Can't afford it
-
-/// Returns TRUE if you have enough of a specified material category (Which could be multiple materials)
-/datum/component/material_container/proc/has_enough_of_category(category, amount, multiplier=1)
-	for(var/i in SSmaterials.materials_by_category[category])
-		var/datum/material/mat = i
-		if(materials[mat] >= amount) //we have enough
-			return TRUE
-	return FALSE
 
 /// Turns a material amount into the amount of sheets it should output
 /datum/component/material_container/proc/amount2sheet(amt)

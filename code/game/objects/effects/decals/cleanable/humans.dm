@@ -12,6 +12,7 @@
 	var/dryname = "dried blood" //when the blood lasts long enough, it becomes dry and gets a new name
 	var/drydesc = "Looks like it's been here a while. Eew." //as above
 	var/drytime = 0
+	var/dried = FALSE
 
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
@@ -24,32 +25,39 @@
 
 /obj/effect/decal/cleanable/blood/process()
 	if(world.time > drytime)
-		dry()
+		dry_tick()
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/decal/cleanable/blood/proc/get_timer()
-	drytime = world.time + 3 MINUTES
+/obj/effect/decal/cleanable/blood/proc/move_timer()
+	drytime = world.time + rand(3 MINUTES, 5 MINUTES)
 
 /obj/effect/decal/cleanable/blood/proc/start_drying()
-	get_timer()
+	move_timer()
 	START_PROCESSING(SSobj, src)
+
+/obj/effect/decal/cleanable/blood/proc/dry_tick()
+	move_timer()
+	if(bloodiness > 20)
+		bloodiness -= BLOOD_AMOUNT_PER_DECAL
+	else if(!dried)
+		dry()
+	else
+		finish_dry()
 
 ///This is what actually "dries" the blood. Returns true if it's all out of blood to dry, and false otherwise
 /obj/effect/decal/cleanable/blood/proc/dry()
-	if(bloodiness > 20)
-		bloodiness -= BLOOD_AMOUNT_PER_DECAL
-		get_timer()
-		return FALSE
-	else
-		name = dryname
-		desc = drydesc
-		bloodiness = 0
-		color =  COLOR_GRAY //not all blood splatters have their own sprites... It still looks pretty nice
-		STOP_PROCESSING(SSobj, src)
-		return TRUE
+	name = dryname
+	desc = drydesc
+	bloodiness = 0
+	color =  COLOR_GRAY //not all blood splatters have their own sprites... It still looks pretty nice
+	dried = TRUE
+
+/obj/effect/decal/cleanable/blood/proc/finish_dry()
+	STOP_PROCESSING(SSobj, src)
+	qdel(src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -107,12 +115,6 @@
 
 /obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
 	return FALSE //Never fail to place us
-
-/obj/effect/decal/cleanable/blood/gibs/dry()
-	. = ..()
-	if(!.)
-		return
-	AddComponent(/datum/component/rot, 0, 5 MINUTES, 0.7)
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return FALSE

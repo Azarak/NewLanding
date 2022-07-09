@@ -38,11 +38,11 @@
 		return TRUE
 
 /obj/structure/fireplace/attackby(obj/item/T, mob/user)
-	if(istype(T, /obj/item/stack/sheet/mineral/wood))
+	if(istype(T, /obj/item/stack/sheet/wood))
 		var/space_for_logs = space_for_wood(T, user)
 		if(!space_for_logs)
 			return
-		var/obj/item/stack/sheet/mineral/wood/wood = T
+		var/obj/item/stack/sheet/wood/wood = T
 		var/logs_used = min(space_for_logs, wood.amount)
 		wood.use(logs_used)
 		adjust_fuel_timer(LOG_BURN_TIMER * logs_used)

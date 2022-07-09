@@ -467,8 +467,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(!silent)
-		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+		play_drop_sound()
 	user?.update_equipment_speed_mods()
+
+/// Plays a drop sound.
+/obj/item/proc/play_drop_sound()
+	if(drop_sound)
+		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /// called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -594,7 +599,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 				playsound(hit_atom, 'sound/weapons/throwtap.ogg', 1, volume, -1)
 
 		else
-			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+			play_drop_sound()
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
@@ -1026,7 +1031,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 				found_mats++
 
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
-		if(custom_materials[GET_MATERIAL_REF(/datum/material/glass)] >= total_material_amount * 0.60)
+		if(custom_materials[/datum/material/glass] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
 				/// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)

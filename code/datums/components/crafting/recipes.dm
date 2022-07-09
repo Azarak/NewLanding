@@ -106,7 +106,7 @@
 	name = "Paper Frames"
 	result = /obj/item/stack/sheet/paperframes/five
 	time = 10
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 5, /obj/item/paper = 20)
+	reqs = list(/obj/item/stack/sheet/wood = 5, /obj/item/paper = 20)
 	category = CAT_MISC
 
 /datum/crafting_recipe/curtain
@@ -117,7 +117,7 @@
 
 /datum/crafting_recipe/showercurtain
 	name = "Shower Curtains"
-	reqs = list(/obj/item/stack/sheet/cloth = 2, /obj/item/stack/sheet/plastic = 2, /obj/item/stack/rods = 1)
+	reqs = list(/obj/item/stack/sheet/cloth = 2, /obj/item/stack/sheet/wood = 2, /obj/item/stack/rods = 1)
 	result = /obj/structure/curtain
 	category = CAT_MISC
 
@@ -140,14 +140,14 @@
 /datum/crafting_recipe/rake //Category resorting incoming
 	name = "Rake"
 	time = 30
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 5)
-	result = /obj/item/cultivator/rake
+	reqs = list(/obj/item/stack/sheet/wood = 5)
+	result = /obj/item/rake
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/woodbucket
 	name = "Wooden Bucket"
 	time = 30
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 3)
+	reqs = list(/obj/item/stack/sheet/wood = 3)
 	result = /obj/item/reagent_containers/glass/bucket/wooden
 	category = CAT_PRIMAL
 
@@ -165,8 +165,8 @@
 	name = "Guillotine"
 	result = /obj/structure/guillotine
 	time = 150 // Building a functioning guillotine takes time
-	reqs = list(/obj/item/stack/sheet/plasteel = 3,
-				/obj/item/stack/sheet/mineral/wood = 20)
+	reqs = list(/obj/item/stack/sheet/steel = 3,
+				/obj/item/stack/sheet/wood = 20)
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
@@ -184,7 +184,7 @@
 /datum/crafting_recipe/basket
 	name = "Basket (Bamboo)"
 	reqs = list(
-		/obj/item/stack/sheet/mineral/bamboo = 20
+		/obj/item/stack/sheet/bamboo = 20
 	)
 	result = /obj/item/storage/basket
 	category = CAT_MISC

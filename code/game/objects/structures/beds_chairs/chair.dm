@@ -53,7 +53,7 @@
 			new buildstacktype(loc,buildstackamount)
 		else
 			for(var/i in custom_materials)
-				var/datum/material/M = i
+				var/datum/material/M = GET_MATERIAL_REF(i)
 				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 	..()
 
@@ -104,21 +104,13 @@
 	handle_rotation(newdir)
 
 // Chair types
-
-///Material chair
-/obj/structure/chair/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
-	item_chair = /obj/item/chair/greyscale
-	buildstacktype = null //Custom mats handle this
-
-
 /obj/structure/chair/wood
 	icon_state = "wooden_chair"
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 3
 	item_chair = /obj/item/chair/wood
 
@@ -177,15 +169,6 @@
 
 /obj/structure/chair/comfy/lime
 	color = rgb(255,251,0)
-
-/obj/structure/chair/comfy/shuttle
-	name = "shuttle seat"
-	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
-	icon_state = "shuttle_chair"
-	buildstacktype = /obj/item/stack/sheet/mineral/titanium
-
-/obj/structure/chair/comfy/shuttle/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 //Stool
 
@@ -326,10 +309,6 @@
 				C.Paralyze(20)
 		smash(user)
 
-/obj/item/chair/greyscale
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
-	origin_type = /obj/structure/chair/greyscale
-
 /obj/item/chair/stool
 	name = "stool"
 	icon_state = "stool_toppled"
@@ -402,63 +381,3 @@
 		user.visible_message(SPAN_NOTICE("[user] stops [src]'s uncontrollable spinning."), \
 		SPAN_NOTICE("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
-
-/obj/structure/chair/mime
-	name = "invisible chair"
-	desc = "The mime needs to sit down and shut up."
-	anchored = FALSE
-	icon_state = null
-	buildstacktype = null
-	item_chair = null
-	flags_1 = NODECONSTRUCT_1
-	alpha = 0
-
-/obj/structure/chair/mime/post_buckle_mob(mob/living/M)
-	M.pixel_y += 5
-
-/obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
-	M.pixel_y -= 5
-
-
-/obj/structure/chair/plastic
-	icon_state = "plastic_chair"
-	name = "folding plastic chair"
-	desc = "No matter how much you squirm, it'll still be uncomfortable."
-	resistance_flags = FLAMMABLE
-	max_integrity = 50
-	custom_materials = list(/datum/material/plastic = 2000)
-	buildstacktype = /obj/item/stack/sheet/plastic
-	buildstackamount = 2
-	item_chair = /obj/item/chair/plastic
-
-/obj/structure/chair/plastic/post_buckle_mob(mob/living/Mob)
-	Mob.pixel_y += 2
-	.=..()
-	if(iscarbon(Mob))
-		INVOKE_ASYNC(src, .proc/snap_check, Mob)
-
-/obj/structure/chair/plastic/post_unbuckle_mob(mob/living/Mob)
-	Mob.pixel_y -= 2
-
-/obj/structure/chair/plastic/proc/snap_check(mob/living/carbon/Mob)
-	if (Mob.nutrition >= NUTRITION_LEVEL_FAT)
-		to_chat(Mob, SPAN_WARNING("The chair begins to pop and crack, you're too heavy!"))
-		if(do_after(Mob, 6 SECONDS, progress = FALSE))
-			Mob.visible_message(SPAN_NOTICE("The plastic chair snaps under [Mob]'s weight!"))
-			new /obj/effect/decal/cleanable/plastic(loc)
-			qdel(src)
-
-/obj/item/chair/plastic
-	name = "folding plastic chair"
-	desc = "Somehow, you can always find one under the wrestling ring."
-	icon = 'icons/obj/chairs.dmi'
-	icon_state = "folded_chair"
-	inhand_icon_state = "folded_chair"
-	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 7
-	throw_range = 5 //Lighter Weight --> Flies Farther.
-	custom_materials = list(/datum/material/plastic = 2000)
-	break_chance = 25
-	origin_type = /obj/structure/chair/plastic

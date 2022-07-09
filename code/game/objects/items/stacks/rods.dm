@@ -25,8 +25,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/gun/general/grenade_launch.ogg'
 	embedding = list(embed_chance = 50)
 	novariants = TRUE
-	matter_amount = 2
-	cost = 250
 	merge_type = /obj/item/stack/rods
 
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
@@ -77,20 +75,3 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/fifty
 	amount = 50
-
-/obj/item/stack/rods/lava
-	name = "heat resistant rod"
-	desc = "Treated, specialized iron rods. When exposed to the vaccum of space their coating breaks off, but they can hold up against the extreme heat of active lava."
-	singular_name = "heat resistant rod"
-	icon_state = "rods"
-	inhand_icon_state = "rods"
-	color = "#5286b9ff"
-	flags_1 = CONDUCT_1
-	w_class = WEIGHT_CLASS_NORMAL
-	mats_per_unit = list(/datum/material/iron=1000, /datum/material/plasma=500, /datum/material/titanium=2000)
-	max_amount = 30
-	resistance_flags = FIRE_PROOF | LAVA_PROOF
-	merge_type = /obj/item/stack/rods/lava
-
-/obj/item/stack/rods/lava/thirty
-	amount = 30

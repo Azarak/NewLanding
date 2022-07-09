@@ -45,17 +45,6 @@
 	required_catalysts = list(/datum/reagent/stabilizing_agent = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
-/datum/chemical_reaction/plasma_solidification
-	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/plasma = 20)
-	mob_react = FALSE
-	reaction_flags = REACTION_INSTANT
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
-
-/datum/chemical_reaction/plasma_solidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/stack/sheet/mineral/plasma(location)
-
 /datum/chemical_reaction/gold_solidification
 	required_reagents = list(/datum/reagent/consumable/frostoil = 5, /datum/reagent/gold = 20, /datum/reagent/iron = 1)
 	mob_react = FALSE
@@ -65,18 +54,7 @@
 /datum/chemical_reaction/gold_solidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/stack/sheet/mineral/gold(location)
-
-/datum/chemical_reaction/uranium_solidification
-	required_reagents = list(/datum/reagent/consumable/frostoil = 5, /datum/reagent/uranium = 20, /datum/reagent/potassium = 1)
-	mob_react = FALSE
-	reaction_flags = REACTION_INSTANT
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
-
-/datum/chemical_reaction/uranium_solidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/stack/sheet/mineral/uranium(location)
+		new /obj/item/stack/sheet/gold(location)
 
 /datum/chemical_reaction/capsaicincondensation
 	results = list(/datum/reagent/consumable/condensedcapsaicin = 5)
@@ -355,17 +333,6 @@
 	required_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/banana = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
-/datum/chemical_reaction/plastic_polymers
-	required_reagents = list(/datum/reagent/fuel/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3)
-	required_temp = 374 //lazily consistent with soap & other crafted objects generically created with heat.
-	reaction_flags = REACTION_INSTANT
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
-
-/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/stack/sheet/plastic(location)
-
 /datum/chemical_reaction/pax
 	results = list(/datum/reagent/pax = 3)
 	required_reagents  = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
@@ -384,19 +351,6 @@
 	required_container = /obj/item/food/grown/mushroom/glowshroom
 	mix_message = "The mushroom's insides bubble and pop and it becomes very limp."
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT | REACTION_TAG_DAMAGING | REACTION_TAG_TOXIN | REACTION_TAG_SLIME
-
-/datum/chemical_reaction/metalgen_imprint
-	required_reagents = list(/datum/reagent/metalgen = 1, /datum/reagent/liquid_dark_matter = 1)
-	results = list(/datum/reagent/metalgen = 1)
-	reaction_flags = REACTION_INSTANT
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
-
-/datum/chemical_reaction/metalgen_imprint/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/datum/reagent/metalgen/MM = holder.get_reagent(/datum/reagent/metalgen)
-	for(var/datum/reagent/R in holder.reagent_list)
-		if(R.material && R.volume >= 40)
-			MM.data["material"] = R.material
-			holder.remove_reagent(R.type, 40)
 
 /datum/chemical_reaction/gravitum
 	required_reagents = list(/datum/reagent/wittel = 1, /datum/reagent/sorium = 10)
@@ -451,7 +405,7 @@
 /datum/chemical_reaction/silver_solidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/stack/sheet/mineral/silver(location)
+		new /obj/item/stack/sheet/silver(location)
 
 /datum/chemical_reaction/bone_gel
 	required_reagents = list(/datum/reagent/bone_dust = 10, /datum/reagent/carbon = 10)

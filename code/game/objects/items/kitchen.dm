@@ -7,10 +7,7 @@
  * Butcher's cleaver
  * Combat Knife
  * Rolling Pins
- * Plastic Utensils
  */
-
-#define PLASTIC_BREAK_PROBABILITY 25
 
 /obj/item/kitchen
 	icon = 'icons/obj/kitchen.dmi'
@@ -65,20 +62,6 @@
 	else
 		return ..()
 
-/obj/item/kitchen/fork/plastic
-	name = "plastic fork"
-	desc = "Really takes you back to highschool lunch."
-	icon_state = "plastic_fork"
-	force = 0
-	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
-	custom_materials = list(/datum/material/plastic=80)
-	custom_price = PAYCHECK_PRISONER * 2
-
-/obj/item/kitchen/fork/plastic/Initialize()
-	. = ..()
-	AddElement(/datum/element/easily_fragmented, PLASTIC_BREAK_PROBABILITY)
-
 /obj/item/kitchen/knife
 	name = "kitchen knife"
 	icon_state = "knife"
@@ -116,25 +99,6 @@
 						SPAN_SUICIDE("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
 						SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with the [src.name]! It looks like [user.p_theyre()] trying to commit seppuku.")))
 	return (BRUTELOSS)
-
-/obj/item/kitchen/knife/plastic
-	name = "plastic knife"
-	icon_state = "plastic_knife"
-	inhand_icon_state = "knife"
-	desc = "A very safe, barely sharp knife made of plastic. Good for cutting food and not much else."
-	force = 0
-	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
-	throw_range = 5
-	custom_materials = list(/datum/material/plastic = 100)
-	attack_verb_continuous = list("prods", "whiffs", "scratches", "pokes")
-	attack_verb_simple = list("prod", "whiff", "scratch", "poke")
-	sharpness = SHARP_EDGED
-	custom_price = PAYCHECK_PRISONER * 2
-
-/obj/item/kitchen/knife/plastic/Initialize()
-	. = ..()
-	AddElement(/datum/element/easily_fragmented, PLASTIC_BREAK_PROBABILITY)
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -269,17 +233,3 @@
 	custom_price = PAYCHECK_PRISONER * 5
 	tool_behaviour = TOOL_MINING
 	toolspeed = 25 // Literally 25 times worse than the base pickaxe
-
-/obj/item/kitchen/spoon/plastic
-	name = "plastic spoon"
-	icon_state = "plastic_spoon"
-	force = 0
-	custom_materials = list(/datum/material/plastic=120)
-	custom_price = PAYCHECK_PRISONER * 2
-	toolspeed = 75 // The plastic spoon takes 5 minutes to dig through a single mineral turf... It's one, continuous, breakable, do_after...
-
-/obj/item/kitchen/spoon/plastic/Initialize()
-	. = ..()
-	AddElement(/datum/element/easily_fragmented, PLASTIC_BREAK_PROBABILITY)
-
-#undef PLASTIC_BREAK_PROBABILITY

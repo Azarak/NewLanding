@@ -1122,3 +1122,7 @@
 */
 /atom/movable/proc/keybind_face_direction(direction)
 	setDir(direction)
+
+/atom/movable/proc/throw_landed(datum/thrownthing/throw_datum)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_THROW_LANDED, throw_datum)

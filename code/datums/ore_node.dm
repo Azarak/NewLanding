@@ -34,63 +34,7 @@
 
 /datum/ore_node/proc/GetScannerReadout(turf/scanner_turf)
 	//We read out ores based on the distance
-	var/list/sorted_ores = ores_to_mine.Copy()
-	var/turf/my_turf = locate(x_coord, y_coord, z_coord)
-	var/dist = get_dist(my_turf,scanner_turf)
-	if(dist <= 0)
-		dist = 1
-	var/percent = 1-(dist/scanner_range)
-	var/precision = round(sorted_ores.len * percent) + 1
-	precision = max(1,precision)
-	var/is_full_scan = FALSE
-	if(precision >= sorted_ores.len)
-		precision = sorted_ores.len
-		is_full_scan = TRUE
-	var/full_string = ""
-	for(var/i in 1 to precision)
-		var/ore_type
-		var/ore_weight = 0
-		for(var/b in sorted_ores)
-			if(sorted_ores[b] > ore_weight)
-				ore_weight = sorted_ores[b]
-				ore_type = b
-		sorted_ores -= ore_type
-		var/described_amount
-		switch(ore_weight)
-			if(-INFINITY to 5)
-				described_amount = "Trace amounts"
-			if(6 to 20)
-				described_amount = "Small amounts"
-			if(20 to 40)
-				described_amount = "Notable amounts"
-			if(40 to 70)
-				described_amount = "Large amounts"
-			if(70 to INFINITY)
-				described_amount = "Plentiful amounts"
-		var/described_ore
-		switch(ore_type)
-			if(/obj/item/stack/ore/uranium)
-				described_ore = "uranium ore"
-			if(/obj/item/stack/ore/diamond)
-				described_ore = "diamonds"
-			if(/obj/item/stack/ore/gold)
-				described_ore = "gold ore"
-			if(/obj/item/stack/ore/silver)
-				described_ore = "silver ore"
-			if(/obj/item/stack/ore/plasma)
-				described_ore = "plasma ore"
-			if(/obj/item/stack/ore/iron)
-				described_ore = "iron ore"
-			if(/obj/item/stack/ore/titanium)
-				described_ore = "titanium ore"
-			if(/obj/item/stack/ore/bluespace_crystal)
-				described_ore = "bluespace crystals"
-			else
-				described_ore = "unidentified ore"
-		full_string += "<BR>[described_amount] of [described_ore]."
-	if(!is_full_scan)
-		full_string += "<BR>..and traces of undetected ore."
-	return full_string
+	return ""
 
 /datum/ore_node/proc/GetScannerDensity(turf/scanner_turf)
 	var/turf/my_turf = locate(x_coord, y_coord, z_coord)
@@ -154,9 +98,7 @@
 			return ON
 
 /obj/effect/ore_node_spawner
-	var/list/possible_ore_weight = list(/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 2, /obj/item/stack/ore/gold = 10,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/bluespace_crystal = 2)
+	var/list/possible_ore_weight = list()
 	var/ore_density = 4
 	var/ore_variety = 5
 

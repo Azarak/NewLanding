@@ -26,10 +26,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/glass
 	grind_results = list(/datum/reagent/silicon = 20)
 	material_type = /datum/material/glass
-	point_value = 1
 	tableVariant = /obj/structure/table/glass
-	matter_amount = 4
-	cost = 500
 	window_type = /obj/structure/window/fulltile
 
 /obj/item/stack/sheet/glass/suicide_act(mob/living/carbon/user)
@@ -60,54 +57,6 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 		return
 	return ..()
 
-GLOBAL_LIST_INIT(pglass_recipes, list ( \
-	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("plasma glass shard", /obj/item/shard/plasma, time = 0, on_floor = TRUE) \
-))
-
-/obj/item/stack/sheet/plasmaglass
-	name = "plasma glass"
-	desc = "A glass sheet made out of a plasma-silicate alloy. It looks extremely tough and heavily fire resistant."
-	singular_name = "plasma glass sheet"
-	icon_state = "sheet-pglass"
-	inhand_icon_state = "sheet-pglass"
-	mats_per_unit = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT)
-	material_type = /datum/material/alloy/plasmaglass
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 100)
-	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/plasmaglass
-	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
-	material_flags = MATERIAL_NO_EFFECTS
-	tableVariant = /obj/structure/table/glass/plasmaglass
-	window_type = /obj/structure/window/plasma/fulltile
-
-/obj/item/stack/sheet/plasmaglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plasmaglass/get_main_recipes()
-	. = ..()
-	. += GLOB.pglass_recipes
-
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V = W
-		if (V.get_amount() >= 1 && get_amount() >= 1)
-			var/obj/item/stack/sheet/plasmarglass/RG = new (get_turf(user))
-			RG.add_fingerprint(user)
-			var/replace = user.get_inactive_held_item()==src
-			V.use(1)
-			use(1)
-			if(QDELETED(src) && replace)
-				user.put_in_hands(RG)
-		else
-			to_chat(user, SPAN_WARNING("You need one rod and one sheet of plasma glass to make reinforced plasma glass!"))
-			return
-	else
-		return ..()
-
 /*
  * Reinforced glass sheets
  */
@@ -129,8 +78,6 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/rglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/iron = 10)
-	point_value = 4
-	matter_amount = 6
 	window_type = /obj/structure/window/reinforced/fulltile
 	tableVariant = /obj/structure/table/reinforced/rglass
 
@@ -141,80 +88,6 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 /obj/item/stack/sheet/rglass/get_main_recipes()
 	. = ..()
 	. += GLOB.reinforced_glass_recipes
-
-GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("plasma glass shard", /obj/item/shard/plasma, time = 0, on_floor = TRUE) \
-))
-
-/obj/item/stack/sheet/plasmarglass
-	name = "reinforced plasma glass"
-	desc = "A glass sheet made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough and nearly fire-proof!"
-	singular_name = "reinforced plasma glass sheet"
-	icon_state = "sheet-prglass"
-	inhand_icon_state = "sheet-prglass"
-	mats_per_unit = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5)
-	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
-	resistance_flags = ACID_PROOF
-	material_flags = MATERIAL_NO_EFFECTS
-	merge_type = /obj/item/stack/sheet/plasmarglass
-	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
-	point_value = 23
-	matter_amount = 8
-	window_type = /obj/structure/window/plasma/reinforced/fulltile
-	tableVariant = /obj/structure/table/reinforced/plasmarglass
-
-/obj/item/stack/sheet/plasmarglass/get_main_recipes()
-	. = ..()
-	. += GLOB.prglass_recipes
-
-GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new/datum/stack_recipe("shuttle window", /obj/structure/window/shuttle/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("glass shard", /obj/item/shard, time = 0, on_floor = TRUE) \
-	))
-
-/obj/item/stack/sheet/titaniumglass
-	name = "titanium glass"
-	desc = "A glass sheet made out of a titanium-silicate alloy."
-	singular_name = "titanium glass sheet"
-	icon_state = "sheet-titaniumglass"
-	inhand_icon_state = "sheet-titaniumglass"
-	mats_per_unit = list(/datum/material/alloy/titaniumglass=MINERAL_MATERIAL_AMOUNT)
-	material_type = /datum/material/alloy/titaniumglass
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
-	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/titaniumglass
-	window_type = /obj/structure/window/shuttle
-	tableVariant = /obj/structure/table/reinforced/titaniumglass
-
-/obj/item/stack/sheet/titaniumglass/get_main_recipes()
-	. = ..()
-	. += GLOB.titaniumglass_recipes
-
-GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plasma/reinforced/plastitanium/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("plasma glass shard", /obj/item/shard/plasma, time = 0, on_floor = TRUE) \
-	))
-
-/obj/item/stack/sheet/plastitaniumglass
-	name = "plastitanium glass"
-	desc = "A glass sheet made out of a plasma-titanium-silicate alloy."
-	singular_name = "plastitanium glass sheet"
-	icon_state = "sheet-plastitaniumglass"
-	inhand_icon_state = "sheet-plastitaniumglass"
-	mats_per_unit = list(/datum/material/alloy/plastitaniumglass=MINERAL_MATERIAL_AMOUNT)
-	material_type = /datum/material/alloy/plastitaniumglass
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
-	material_flags = MATERIAL_NO_EFFECTS
-	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/plastitaniumglass
-	window_type = /obj/structure/window/plasma/reinforced/plastitanium
-	tableVariant = /obj/structure/table/reinforced/plastitaniumglass
-
-/obj/item/stack/sheet/plastitaniumglass/get_main_recipes()
-	. = ..()
-	. += GLOB.plastitaniumglass_recipes
 
 /obj/item/shard
 	name = "shard"
@@ -328,13 +201,3 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 		var/mob/living/L = AM
 		if(!(L.movement_type & (FLYING|FLOATING)) || L.buckled)
 			playsound(src, 'sound/effects/glass_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 30 : 50, TRUE)
-
-/obj/item/shard/plasma
-	name = "purple shard"
-	desc = "A nasty looking shard of plasma glass."
-	force = 6
-	throwforce = 11
-	icon_state = "plasmalarge"
-	custom_materials = list(/datum/material/alloy/plasmaglass=MINERAL_MATERIAL_AMOUNT)
-	icon_prefix = "plasma"
-	weld_material = /obj/item/stack/sheet/plasmaglass

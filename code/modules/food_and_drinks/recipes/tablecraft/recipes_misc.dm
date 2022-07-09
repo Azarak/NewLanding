@@ -22,15 +22,6 @@
 	result = /obj/item/food/spiderlollipop
 	subcategory = CAT_MISCFOOD
 
-/datum/crafting_recipe/food/chococoin
-	name = "Choco coin"
-	reqs = list(
-		/obj/item/coin = 1,
-		/obj/item/food/chocolatebar = 1,
-	)
-	result = /obj/item/food/chococoin
-	subcategory = CAT_MISCFOOD
-
 /datum/crafting_recipe/food/fudgedice
 	name = "Fudge dice"
 	reqs = list(

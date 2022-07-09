@@ -45,7 +45,7 @@
 	throw_range = 3
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "whacks")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "whack")
-	var/plank_type = /obj/item/stack/sheet/mineral/wood
+	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
@@ -105,7 +105,7 @@
 	name = "bamboo log"
 	desc = "A long and resistant bamboo log."
 	icon_state = "bamboo"
-	plank_type = /obj/item/stack/sheet/mineral/bamboo
+	plank_type = /obj/item/stack/sheet/bamboo
 	plank_name = "bamboo sticks"
 
 /obj/structure/punji_sticks

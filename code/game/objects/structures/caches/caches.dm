@@ -2,6 +2,7 @@
 	name = "tree stump"
 	desc = "A tree stump. There seems to be a hollowed space underneath it."
 	icon_state = "tree_stump"
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 
 /obj/structure/cache/wall_crack
 	name = "wall crack"

@@ -400,21 +400,6 @@
 	spawned_mob.visible_message(SPAN_NOTICE("[our_plant] growls as it suddenly awakens!"))
 	qdel(our_plant)
 
-/// Killer Tomato's transformation gene.
-/datum/plant_gene/trait/mob_transformation/tomato
-	dangerous = TRUE
-	killer_plant = /mob/living/simple_animal/hostile/killertomato
-	mob_health_multiplier = 0.33
-	mob_melee_multiplier = 0.1
-	mob_speed_multiplier = 0.02
-
-/// Walking Mushroom's transformation gene
-/datum/plant_gene/trait/mob_transformation/shroom
-	killer_plant = /mob/living/simple_animal/hostile/mushroom
-	mob_health_multiplier = 0.25
-	mob_melee_multiplier = 0.05
-	mob_speed_multiplier = 0.02
-
 /// Traiit for plants eaten in 1 bite.
 /datum/plant_gene/trait/one_bite
 	name = "Large Bites"

@@ -12,7 +12,6 @@
 	max_integrity = 40
 	novariants = FALSE
 	item_flags = NOBLUDGEON
-	cost = 250
 	merge_type = /obj/item/stack/medical
 	/// How long it takes to apply it to yourself
 	var/self_delay = 5 SECONDS
@@ -481,7 +480,7 @@
 	name = "Improvised Splint"
 	result = /obj/item/stack/medical/splint/improvised
 	time = 30
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 2, /obj/item/stack/sheet/cloth = 2)
+	reqs = list(/obj/item/stack/sheet/wood = 2, /obj/item/stack/sheet/cloth = 2)
 	category = CAT_MISC
 
 /obj/item/stack/medical/splint/tribal

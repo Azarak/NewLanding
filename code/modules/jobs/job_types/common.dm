@@ -14,6 +14,7 @@
 	uniform = /obj/item/clothing/under/commoner
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
+	l_pocket = /obj/item/storage/pouch/random_commoner
 
 /datum/job/crafstman
 	title = "Craftsman"
@@ -31,6 +32,7 @@
 	uniform = /obj/item/clothing/under/commoner
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
+	l_pocket = /obj/item/storage/pouch/random_commoner
 
 /datum/job/deckguard
 	title = "Deckguard"
@@ -48,6 +50,7 @@
 	uniform = /obj/item/clothing/under/commoner
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
+	l_pocket = /obj/item/storage/pouch/random_commoner
 
 /datum/job/pirate
 	title = "Pirate"
@@ -65,6 +68,7 @@
 	uniform = /obj/item/clothing/under/commoner
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
+	l_pocket = /obj/item/storage/pouch/random_commoner
 
 /datum/job/shaman
 	title = "Shaman"
@@ -82,3 +86,4 @@
 	uniform = /obj/item/clothing/under/commoner
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
+	l_pocket = /obj/item/storage/pouch/random_commoner

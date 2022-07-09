@@ -12,7 +12,7 @@
 	close_sound = 'sound/structure/closet/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
-	material_drop = /obj/item/stack/sheet/plasteel
+	material_drop = /obj/item/stack/sheet/steel
 	material_drop_amount = 2
 	drag_slowdown = 0
 	pass_flags_self = PASSSTRUCTURE | LETPASSTHROW
@@ -78,7 +78,7 @@
 	base_icon_state = "coffin"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/mineral/wood
+	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 5
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'

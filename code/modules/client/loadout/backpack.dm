@@ -49,10 +49,6 @@
 	path = /obj/item/pen/fountain
 	cost = 2
 
-/datum/loadout_item/backpack/coin
-	name = "iron coin"
-	path = /obj/item/coin/iron
-
 //TOYS
 /datum/loadout_item/backpack/toy
 	subcategory = LOADOUT_SUBCATEGORY_BACKPACK_TOYS

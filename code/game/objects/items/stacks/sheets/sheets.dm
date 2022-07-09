@@ -5,14 +5,13 @@
 	full_w_class = WEIGHT_CLASS_NORMAL
 	force = 5
 	throwforce = 5
-	max_amount = 50
+	max_amount = 10
 	throw_speed = 1
 	throw_range = 3
 	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "smashes")
 	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "smash")
 	novariants = FALSE
 	var/sheettype = null //this is used for girders in the creation of walls/false walls
-	var/point_value = 0 //turn-in value for the gulag stacker - loosely relative to its rarity.
 	///What type of wall does this sheet spawn
 	var/walltype
 	/// What type of fulltile window this sheet can construct.
@@ -34,7 +33,8 @@
  */
 /obj/item/stack/sheet/proc/on_attack_floor(mob/user, params)
 	var/list/shards = list()
-	for(var/datum/material/mat in custom_materials)
+	for(var/mat_type in custom_materials)
+		var/datum/material/mat = GET_MATERIAL_REF(mat_type)
 		if(mat.shard_type)
 			var/obj/item/new_shard = new mat.shard_type(user.loc)
 			new_shard.add_fingerprint(user)

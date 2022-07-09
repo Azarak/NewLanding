@@ -39,17 +39,6 @@
 	if(.)
 		on_shield_block(owner, hitby, attack_text, damage, attack_type)
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
-			to_chat(user, SPAN_WARNING("[src] is already in perfect condition."))
-		else
-			var/obj/item/stack/sheet/mineral/titanium/T = W
-			T.use(1)
-			obj_integrity = max_integrity
-			to_chat(user, SPAN_NOTICE("You repair [src] with [T]."))
-	else
-		return ..()
 
 /obj/item/shield/riot/examine(mob/user)
 	. = ..()
@@ -113,4 +102,4 @@
 
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	new /obj/item/stack/sheet/wood(get_turf(src))

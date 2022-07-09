@@ -50,7 +50,7 @@
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
 	if(!ckey)
-		..(1)
+		..(TRUE)
 		if(!gibbed)
 			var/obj/item/food/deadmouse/M = new(loc)
 			M.icon_state = icon_dead
@@ -59,18 +59,7 @@
 				M.add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 				M.desc = "It's toast."
 		qdel(src)
-	else
-		SSmobs.cheeserats -= src // remove play controlled mouse also
-		..(gibbed)
 
-/mob/living/simple_animal/mouse/revive(full_heal = FALSE, admin_revive = FALSE)
-	var/cap = CONFIG_GET(number/ratcap)
-	if(!admin_revive && !ckey && LAZYLEN(SSmobs.cheeserats) >= cap)
-		visible_message(SPAN_WARNING("[src] twitched but does not continue moving due to the overwhelming rodent population on the station!"))
-		return FALSE
-	. = ..()
-	if(.)
-		SSmobs.cheeserats += src
 
 /mob/living/simple_animal/mouse/proc/on_entered(datum/source, AM as mob|obj)
 	SIGNAL_HANDLER
@@ -78,57 +67,7 @@
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, SPAN_NOTICE("[icon2html(src, M)] Squeak!"))
-	if(istype(AM, /obj/item/food/cheese/royal))
-		evolve()
-		qdel(AM)
 
-/mob/living/simple_animal/mouse/handle_automated_action()
-	for(var/obj/item/food/cheese/cheese in range(1, src))
-		if(prob(10))
-			be_fruitful()
-			qdel(cheese)
-			return
-	for(var/obj/item/food/cheese/royal/bigcheese in range(1, src))
-		qdel(bigcheese)
-		evolve()
-		return
-
-/mob/living/simple_animal/mouse/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return
-	. = ..()
-	if(istype(A, /obj/item/food/cheese) && canUseTopic(A, BE_CLOSE, NO_DEXTERITY))
-		if(health == maxHealth)
-			to_chat(src,SPAN_WARNING("You don't need to eat or heal."))
-			return
-		to_chat(src,SPAN_GREEN("You nibble some cheese, restoring your health."))
-		adjustHealth(-(maxHealth-health))
-		qdel(A)
-		return
-	return ..()
-
-/**
- *Checks the mouse cap, if it's above the cap, doesn't spawn a mouse. If below, spawns a mouse and adds it to cheeserats.
- */
-/mob/living/simple_animal/mouse/proc/be_fruitful()
-	var/cap = CONFIG_GET(number/ratcap)
-	if(LAZYLEN(SSmobs.cheeserats) >= cap)
-		visible_message(SPAN_WARNING("[src] carefully eats the cheese, hiding it from the [cap] mice on the station!"))
-		return
-	var/mob/living/newmouse = new /mob/living/simple_animal/mouse(loc)
-	SSmobs.cheeserats += newmouse
-	visible_message(SPAN_NOTICE("[src] nibbles through the cheese, attracting another mouse!"))
-
-/**
- *Spawns a new regal rat, says some good jazz, and if sentient, transfers the relivant mind.
- */
-/mob/living/simple_animal/mouse/proc/evolve()
-	var/mob/living/simple_animal/hostile/regalrat/regalrat = new /mob/living/simple_animal/hostile/regalrat/controlled(loc)
-	visible_message(SPAN_WARNING("[src] devours the cheese! He morphs into something... greater!"))
-	INVOKE_ASYNC(regalrat, /atom/movable/proc/say, "RISE, MY SUBJECTS! SCREEEEEEE!")
-	if(mind)
-		mind.transfer_to(regalrat)
-	qdel(src)
 
 /*
  * Mouse types
@@ -147,10 +86,6 @@
 	body_color = "brown"
 	icon_state = "mouse_brown"
 	held_state = "mouse_brown"
-
-/mob/living/simple_animal/mouse/Destroy()
-	SSmobs.cheeserats -= src
-	return ..()
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/tom

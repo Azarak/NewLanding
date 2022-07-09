@@ -8,7 +8,6 @@
 	icon_state = "cheesewheel"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/protein = 5, /datum/reagent/consumable/nutriment/vitamin = 5) //Hard cheeses contain about 25% protein
 	w_class = WEIGHT_CLASS_NORMAL
-	rat_heal = 35
 
 /obj/item/food/cheese/wheel/Initialize()
 	. = ..()
@@ -24,7 +23,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 15, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/gold = 20, /datum/reagent/toxin/mutagen = 5)
 	w_class = WEIGHT_CLASS_BULKY
 	tastes = list("cheese" = 4, "royalty" = 1)
-	rat_heal = 70
 
 /obj/item/food/cheese
 	name = "cheese wedge"
@@ -34,17 +32,6 @@
 	tastes = list("cheese" = 1)
 	foodtypes = DAIRY
 	w_class = WEIGHT_CLASS_SMALL
-	/// used to determine how much health rats/regal rats recover when they eat it.
-	var/rat_heal = 10
-
-/obj/item/food/cheese/Initialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_RAT_INTERACT, .proc/on_rat_eat)
-
-/obj/item/food/cheese/proc/on_rat_eat(mob/living/simple_animal/hostile/regalrat/king)
-	SIGNAL_HANDLER
-
-	king.cheese_heal(src, rat_heal, SPAN_GREEN("You eat [src], restoring some health."))
 
 /obj/item/food/watermelonslice
 	name = "watermelon slice"

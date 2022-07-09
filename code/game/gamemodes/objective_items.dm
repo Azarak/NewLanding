@@ -44,7 +44,7 @@
 //Stack objectives get their own subtype
 /datum/objective_item/stack
 	name = "5 cardboard."
-	targetitem = /obj/item/stack/sheet/cardboard
+	targetitem
 	difficulty = 9001
 
 /datum/objective_item/stack/check_special_completion(obj/item/stack/S)

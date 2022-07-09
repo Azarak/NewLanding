@@ -18,9 +18,6 @@
 	var/singular_name
 	var/amount = 1
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
-	var/is_cyborg = FALSE // It's TRUE if module is used by a cyborg, and uses its storage
-	var/datum/robot_energy_storage/source
-	var/cost = 1 // How much energy from storage it costs
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/full_w_class = WEIGHT_CLASS_NORMAL //The weight class the stack should have at amount > 2/3rds max_amount
 	var/novariants = TRUE //Determines whether the item should update it's sprites based on amount.
@@ -29,9 +26,6 @@
 	var/material_type
 	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
 	var/obj/structure/table/tableVariant // we tables now (stores table variant to be built from this stack)
-
-	/// Amount of matter for RCD
-	var/matter_amount = 0
 	/// Does this stack require a unique girder in order to make a wall?
 	var/has_unique_girder = FALSE
 
@@ -53,30 +47,28 @@
 
 	. = ..()
 	if(merge)
-		for(var/obj/item/stack/S in loc)
-			if(can_merge(S))
-				INVOKE_ASYNC(src, .proc/merge, S)
-				//Merge can call qdel on us, so let's be safe yeah?
-				if(QDELETED(src))
-					return
-	var/list/temp_recipes = get_main_recipes()
-	recipes = temp_recipes.Copy()
-	if(material_type)
-		var/datum/material/M = GET_MATERIAL_REF(material_type) //First/main material
-		for(var/i in M.categories)
-			switch(i)
-				if(MAT_CATEGORY_BASE_RECIPES)
-					var/list/temp = SSmaterials.base_stack_recipes.Copy()
-					recipes += temp
-				if(MAT_CATEGORY_RIGID)
-					var/list/temp = SSmaterials.rigid_stack_recipes.Copy()
-					recipes += temp
+		try_merge_in_loc()
+		if(QDELETED(src))
+			return
+	recipes = get_main_recipes()
 	update_weight()
 	update_appearance()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
 	AddElement(/datum/element/connect_loc, src, loc_connections)
+
+/obj/item/stack/throw_landed(datum/thrownthing/throw_datum)
+	. = ..()
+	try_merge_in_loc()
+
+/obj/item/stack/proc/try_merge_in_loc()
+	for(var/obj/item/stack/stack in loc)
+		if(can_merge(stack))
+			INVOKE_ASYNC(src, .proc/merge, stack)
+			//Merge can call qdel on us, so let's be safe yeah?
+			if(QDELETED(src))
+				return
 
 /** Sets the amount of materials per unit for this stack.
  *
@@ -85,7 +77,7 @@
  * - multiplier: The amount to multiply the mats per unit by. Defaults to 1.
  */
 /obj/item/stack/proc/set_mats_per_unit(list/mats, multiplier=1)
-	mats_per_unit = SSmaterials.FindOrCreateMaterialCombo(mats, multiplier)
+	mats_per_unit = get_material_list_cache(mats)
 	update_custom_materials()
 
 /** Updates the custom materials list of this stack.
@@ -131,12 +123,6 @@
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
-	if(is_cyborg)
-		if(singular_name)
-			. += "There is enough energy for [get_amount()] [singular_name]\s."
-		else
-			. += "There is enough energy for [get_amount()]."
-		return
 	if(singular_name)
 		if(get_amount()>1)
 			. += "There are [get_amount()] [singular_name]\s in the stack."
@@ -225,7 +211,7 @@
 
 	switch(action)
 		if("make")
-			if(get_amount() < 1 && !is_cyborg)
+			if(get_amount() < 1)
 				qdel(src)
 				return
 			var/datum/stack_recipe/recipe = locate(params["ref"])
@@ -385,8 +371,7 @@
  * - _amount: The number of units to add to this stack.
  */
 /obj/item/stack/proc/add(_amount)
-	if(length(mats_per_unit))
-		update_custom_materials()
+	amount += _amount
 	update_appearance()
 	update_weight()
 
@@ -397,10 +382,6 @@
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check)
 	if(!istype(check, merge_type))
-		return FALSE
-	if(mats_per_unit != check.mats_per_unit)
-		return FALSE
-	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
 	return TRUE
 
@@ -420,7 +401,7 @@
 /obj/item/stack/proc/on_entered(datum/source, atom/movable/crossing)
 	SIGNAL_HANDLER
 	if(!crossing.throwing && can_merge(crossing))
-		INVOKE_ASYNC(src, .proc/merge, crossing)
+		INVOKE_ASYNC(crossing, .proc/merge, src)
 
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting))
@@ -437,7 +418,7 @@
 		. = ..()
 
 /obj/item/stack/attack_hand_secondary(mob/user, modifiers)
-	if(is_cyborg || !user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE) || zero_amount())
+	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE) || zero_amount())
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	var/max = get_amount()
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum [max])", "Stack Split") as null|num)

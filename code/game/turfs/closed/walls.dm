@@ -31,7 +31,6 @@
 		neighbor_typecache = typecacheof(list(
 			/obj/structure/window/reinforced/fulltile,
 			/obj/structure/window/fulltile,
-			/obj/structure/window/shuttle,
 			/obj/structure/window/plasma/reinforced/fulltile,
 			/obj/structure/window/plasma/fulltile,
 			/obj/structure/low_wall,

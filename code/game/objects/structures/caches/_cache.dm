@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(cache_loot_pools, init_cache_pools())
 	return
 
 /// Global list for the unique loot pool.
-GLOBAL_LIST_INIT(cache_loot_unique_list, list(/obj/item/coin/gold, /obj/item/coin/gold))
+GLOBAL_LIST_INIT(cache_loot_unique_list, list(/obj/item/stack/coin/gold, /obj/item/stack/coin/gold))
 
 /datum/cache_loot_pool/basic
 	abstract_type = /datum/cache_loot_pool/basic
@@ -145,6 +145,6 @@ GLOBAL_LIST_INIT(cache_loot_unique_list, list(/obj/item/coin/gold, /obj/item/coi
 
 /datum/cache_loot_pool/basic/common
 	loot_list = list(
-		/obj/item/coin/gold = 10,
-		/obj/item/coin/silver = 10,
+		/obj/item/stack/coin/gold = 10,
+		/obj/item/stack/coin/silver = 10,
 		)

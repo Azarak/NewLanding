@@ -533,7 +533,7 @@
 	if(custom_materials)
 		var/list/materials_list = list()
 		for(var/i in custom_materials)
-			var/datum/material/M = i
+			var/datum/material/M = GET_MATERIAL_REF(i)
 			materials_list += "[M.name]"
 		. += "<u>It is made out of [english_list(materials_list)]</u>."
 	if(reagents)
@@ -1602,7 +1602,7 @@
 			var/datum/material/custom_material = GET_MATERIAL_REF(x)
 			custom_material.on_applied(src, materials[x] * multiplier * material_modifier, material_flags)
 
-	custom_materials = SSmaterials.FindOrCreateMaterialCombo(materials, multiplier)
+	custom_materials = get_material_list_cache(materials)
 
 /**
  * Returns the material composition of the atom.
@@ -1617,9 +1617,6 @@
  */
 /atom/proc/get_material_composition(breakdown_flags=NONE)
 	. = list()
-	if(!(breakdown_flags & BREAKDOWN_INCLUDE_ALCHEMY) && HAS_TRAIT(src, TRAIT_MAT_TRANSMUTED))
-		return
-
 	var/list/cached_materials = custom_materials
 	for(var/mat in cached_materials)
 		var/datum/material/material = GET_MATERIAL_REF(mat)
@@ -1650,56 +1647,6 @@
 		LAZYSET(materials_of_type, material, cached_materials[m])
 
 	return materials_of_type
-
-/**
- * Fetches a list of all of the materials this object has with the desired material category.
- *
- * Arguments:
- * - category: The category to check for
- * - any_flags: Any bitflags that must be present for the category
- * - all_flags: All bitflags that must be present for the category
- * - no_flags: Any bitflags that must not be present for the category
- * - mat_amount: The minimum amount of materials that must be present
- */
-/atom/proc/has_material_category(category, any_flags=0, all_flags=0, no_flags=0, mat_amount=0)
-	var/list/cached_materials = custom_materials
-	if(!length(cached_materials))
-		return null
-
-	var/materials_of_category
-	for(var/m in cached_materials)
-		if(cached_materials[m] < mat_amount)
-			continue
-		var/datum/material/material = GET_MATERIAL_REF(m)
-		var/category_flags = material?.categories[category]
-		if(isnull(category_flags))
-			continue
-		if(any_flags && !(category_flags & any_flags))
-			continue
-		if(all_flags && (all_flags != (category_flags & all_flags)))
-			continue
-		if(no_flags && (category_flags & no_flags))
-			continue
-		LAZYSET(materials_of_category, material, cached_materials[m])
-	return materials_of_category
-
-/**
- * Gets the most common material in the object.
- */
-/atom/proc/get_master_material()
-	var/list/cached_materials = custom_materials
-	if(!length(cached_materials))
-		return null
-
-	var/most_common_material = null
-	var/max_amount = 0
-	for(var/m in cached_materials)
-		if(cached_materials[m] > max_amount)
-			most_common_material = m
-			max_amount = cached_materials[m]
-
-	if(most_common_material)
-		return GET_MATERIAL_REF(most_common_material)
 
 /**
  * Gets the total amount of materials in this atom.
@@ -1873,3 +1820,19 @@
  */
 /atom/proc/rad_act(strength)
 	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
+
+/// Animation proc
+/atom/proc/do_jiggle(targetangle = 25, timer = 20)
+	var/matrix/OM = matrix(transform)
+	var/matrix/M = matrix(transform)
+	M.Turn(pick(-targetangle, targetangle))
+	animate(src, transform = M, time = timer * 0.1, easing = BACK_EASING | EASE_IN)
+	animate(transform = OM, time = timer * 0.4, easing = ELASTIC_EASING)
+
+/// Animation proc
+/atom/proc/do_squish(squishx = 1.2, squishy = 0.6, timer = 20)
+	var/matrix/OM = matrix(transform)
+	var/matrix/M = matrix(transform)
+	M.Scale(squishx, squishy)
+	animate(src, transform = M, time = timer * 0.5, easing = ELASTIC_EASING)
+	animate(transform = OM, time = timer * 0.5, easing = BOUNCE_EASING, flags = ANIMATION_PARALLEL)

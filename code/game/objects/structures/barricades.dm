@@ -77,7 +77,7 @@
 	max_integrity = 75
 
 /obj/structure/barricade/wooden/make_debris()
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src), drop_amount)
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
 
 /obj/structure/barricade/sandbags
 	name = "sandbags"

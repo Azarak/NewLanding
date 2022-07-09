@@ -8,20 +8,25 @@
 /atom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over)
 		return
-	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, usr) & COMPONENT_NO_MOUSEDROP) //Whatever is receiving will verify themselves for adjacency.
-		return
 	if(over == src)
 		return usr.client.Click(src, src_location, src_control, params)
 	if(!Adjacent(usr) || !over.Adjacent(usr))
 		return // should stop you from dragging through windows
-
-	over.MouseDrop_T(src,usr)
+	if(mouse_drop_onto(over, usr))
+		return
+	if(over.mouse_dropped(src,usr))
+		return
 	return
 
-// receive a mousedrop
-/atom/proc/MouseDrop_T(atom/dropping, mob/user)
-	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user)
-	return
+/// Receive a mousedrop from another atom.
+/atom/proc/mouse_dropped(atom/dropping, mob/user)
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user) & COMPONENT_NO_MOUSEDROP)
+		return TRUE
+
+/// Be mousedropped onto another atom.
+/atom/proc/mouse_drop_onto(atom/dropped, mob/user)
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, dropped, usr) & COMPONENT_NO_MOUSEDROP) //Whatever is receiving will verify themselves for adjacency.
+		return TRUE
 
 
 /client/MouseDown(datum/object, location, control, params)

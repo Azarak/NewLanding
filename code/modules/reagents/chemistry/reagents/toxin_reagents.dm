@@ -66,7 +66,6 @@
 	taste_mult = 1.5
 	color = "#8228A0"
 	toxpwr = 3
-	material = /datum/material/plasma
 	penetrates_skin = NONE
 	ph = 4
 	burning_temperature = 4500//plasma is hot!!
@@ -118,7 +117,6 @@
 	taste_description = "thick and smokey"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	toxpwr = 3
-	material = /datum/material/hot_ice
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/toxin/hot_ice/on_mob_life(mob/living/carbon/M, delta_time, times_fired)

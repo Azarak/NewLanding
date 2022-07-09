@@ -49,11 +49,3 @@
 		animate(pixel_y = user.pixel_y - (2 * direction), time = 1, easing = SINE_EASING)
 		animate(pixel_y = user.pixel_y + (1 * direction), time = 1, easing = SINE_EASING)
 	user.changeNext_move(CLICK_CD_MELEE)
-
-/datum/crafting_recipe/picket_sign
-	name = "Picket Sign"
-	result = /obj/item/picket_sign
-	reqs = list(/obj/item/stack/rods = 1,
-				/obj/item/stack/sheet/cardboard = 2)
-	time = 80
-	category = CAT_MISC

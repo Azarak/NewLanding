@@ -234,9 +234,6 @@
 ///from base of [/datum/reagent/proc/expose_atom]: (/turf, reac_volume)
 #define COMSIG_REAGENT_EXPOSE_TURF "reagent_expose_turf"
 
-///from base of [/datum/controller/subsystem/materials/proc/InitializeMaterial]: (/datum/material)
-#define COMSIG_MATERIALS_INIT_MAT "SSmaterials_init_mat"
-
 ///from base of [/datum/reagents/proc/add_reagent]: (/datum/reagent, amount, reagtemp, data, no_react)
 #define COMSIG_REAGENTS_NEW_REAGENT "reagents_new_reagent"
 ///from base of [/datum/reagents/proc/add_reagent]: (/datum/reagent, amount, reagtemp, data, no_react)
@@ -346,8 +343,9 @@
 ///from base of atom/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
-///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
+///from base of atom/mouse_dropped: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+	//#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of mob/MouseWheelOn(): (/atom, delta_x, delta_y, params)
 #define COMSIG_MOUSE_SCROLL_ON "mousescroll_on"
 
@@ -674,8 +672,6 @@
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0) //cancel the attack, only works before attack happens
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
-///from base of mob/living/simple_animal/hostile/regalrat: (mob/living/simple_animal/hostile/regalrat/king)
-#define COMSIG_RAT_INTERACT "rat_interaction"
 
 ///from /obj/item/slapper/attack_obj(): (source=mob/living/slammer, obj/structure/table/slammed_table)
 #define COMSIG_LIVING_SLAM_TABLE "living_slam_table"

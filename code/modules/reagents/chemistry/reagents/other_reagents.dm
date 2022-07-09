@@ -653,7 +653,6 @@
 	taste_description = "the inside of a reactor"
 	var/irradiation_level = 0.5*REM
 	ph = 4
-	material = /datum/material/uranium
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -688,7 +687,6 @@
 	reagent_state = SOLID
 	color = "#0000CC"
 	taste_description = "fizzling blue"
-	material = /datum/material/bluespace
 	ph = 12
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -1489,18 +1487,6 @@
 
 //Misc reagents
 
-/datum/reagent/magillitis
-	name = "Magillitis"
-	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
-	reagent_state = LIQUID
-	color = "#00f041"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/magillitis/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	..()
-	if((ishuman(M)) && current_cycle >= 10)
-		M.gorillize()
-
 /datum/reagent/growthserum
 	name = "Growth Serum"
 	description = "A commercial chemical designed to help older men in the bedroom."//not really it just makes you a giant
@@ -1734,45 +1720,6 @@
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	taste_mult = 0 // oderless and tasteless
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
-/datum/reagent/metalgen
-	name = "Metalgen"
-	data = list("material"=null)
-	description = "A purple metal morphic liquid, said to impose it's metallic properties on whatever it touches."
-	color = "#b000aa"
-	taste_mult = 0 // oderless and tasteless
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	/// The material flags used to apply the transmuted materials
-	var/applied_material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
-	/// The amount of materials to apply to the transmuted objects if they don't contain materials
-	var/default_material_amount = 100
-
-/datum/reagent/metalgen/expose_obj(obj/exposed_obj, volume)
-	. = ..()
-	metal_morph(exposed_obj)
-
-/datum/reagent/metalgen/expose_turf(turf/exposed_turf, volume)
-	. = ..()
-	metal_morph(exposed_turf)
-
-///turn an object into a special material
-/datum/reagent/metalgen/proc/metal_morph(atom/A)
-	var/metal_ref = data["material"]
-	if(!metal_ref)
-		return
-
-	var/metal_amount = 0
-	var/list/materials_to_transmute = A.get_material_composition(BREAKDOWN_INCLUDE_ALCHEMY)
-	for(var/metal_key in materials_to_transmute) //list with what they're made of
-		metal_amount += materials_to_transmute[metal_key]
-
-	if(!metal_amount)
-		metal_amount = default_material_amount //some stuff doesn't have materials at all. To still give them properties, we give them a material. Basically doesn't exist
-
-	var/list/metal_dat = list((metal_ref) = metal_amount)
-	A.material_flags = applied_material_flags
-	A.set_custom_materials(metal_dat)
-	ADD_TRAIT(A, TRAIT_MAT_TRANSMUTED, type)
 
 /datum/reagent/gravitum
 	name = "Gravitum"

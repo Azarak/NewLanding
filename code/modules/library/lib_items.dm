@@ -85,8 +85,8 @@
 					deconstruct(TRUE)
 
 		if(BOOKCASE_ANCHORED)
-			if(istype(I, /obj/item/stack/sheet/mineral/wood))
-				var/obj/item/stack/sheet/mineral/wood/W = I
+			if(istype(I, /obj/item/stack/sheet/wood))
+				var/obj/item/stack/sheet/wood/W = I
 				if(W.get_amount() >= 2)
 					W.use(2)
 					to_chat(user, SPAN_NOTICE("You add a shelf."))
@@ -126,7 +126,7 @@
 				else
 					I.play_tool_sound(src, 100)
 					to_chat(user, SPAN_NOTICE("You pry the shelf out."))
-					new /obj/item/stack/sheet/mineral/wood(drop_location(), 2)
+					new /obj/item/stack/sheet/wood(drop_location(), 2)
 					state = BOOKCASE_ANCHORED
 					update_appearance()
 			else
@@ -157,7 +157,7 @@
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	var/atom/Tsec = drop_location()
-	new /obj/item/stack/sheet/mineral/wood(Tsec, 4)
+	new /obj/item/stack/sheet/wood(Tsec, 4)
 	for(var/obj/item/I in contents)
 		if(!isbook(I))
 			continue

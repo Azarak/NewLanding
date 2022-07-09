@@ -78,32 +78,6 @@
 	. = new_corgi
 	qdel(src)
 
-/mob/living/carbon/proc/gorillize()
-	if(notransform)
-		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-
-	SSblackbox.record_feedback("amount", "gorillas_created", 1)
-
-	var/Itemlist = get_equipped_items(TRUE)
-	Itemlist += held_items
-	for(var/obj/item/W in Itemlist)
-		dropItemToGround(W, TRUE)
-
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
-	new_gorilla.set_combat_mode(TRUE)
-	if(mind)
-		mind.transfer_to(new_gorilla)
-	else
-		new_gorilla.key = key
-	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
-	. = new_gorilla
-	qdel(src)
-
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
@@ -174,10 +148,6 @@
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return TRUE
 	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
-		return TRUE
-	if(ispath(MP, /mob/living/simple_animal/hostile/mushroom))
-		return TRUE
-	if(ispath(MP, /mob/living/simple_animal/hostile/killertomato))
 		return TRUE
 	if(ispath(MP, /mob/living/simple_animal/mouse))
 		return TRUE

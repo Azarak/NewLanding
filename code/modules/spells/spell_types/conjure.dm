@@ -56,7 +56,6 @@
 	clothes_req = FALSE
 	charge_max = 600
 	cooldown_min = 200
-	summon_type = list(/obj/structure/spawner/nether)
 	summon_amt = 1
 	range = 1
 	cast_sound = 'sound/weapons/marauder.ogg'

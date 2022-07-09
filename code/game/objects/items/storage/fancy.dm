@@ -16,7 +16,6 @@
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
 	resistance_flags = FLAMMABLE
-	custom_materials = list(/datum/material/cardboard = 2000)
 	/// Used by examine to report what this thing is holding.
 	var/contents_tag = "errors"
 	/// What type of thing to fill this storage with.
@@ -24,7 +23,7 @@
 	/// Whether the container is open or not
 	var/is_open = FALSE
 	/// What this container folds up into when it's empty.
-	var/obj/fold_result = /obj/item/stack/sheet/cardboard
+	var/obj/fold_result
 
 /obj/item/storage/fancy/PopulateContents()
 	if(!spawn_type)

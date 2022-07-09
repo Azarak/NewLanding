@@ -208,8 +208,8 @@
 			/obj/item/stack/sheet
 			),
 		list(
-			/obj/item/stack/sheet/mineral/sandstone,
-			/obj/item/stack/sheet/mineral/wood
+			/obj/item/stack/sheet/sandstone,
+			/obj/item/stack/sheet/wood
 			))
 	STR.max_combined_stack_amount = 300
 

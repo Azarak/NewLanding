@@ -510,6 +510,7 @@
 			return FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
 			playsound(A, "rustle", 50, TRUE, -5)
+			A.do_squish(0.8, 1.2)
 			return TRUE
 	return FALSE
 
@@ -576,12 +577,13 @@
 	// this must come before the screen objects only block, dunno why it wasn't before
 	if(over_object == M)
 		user_show_to_mob(M)
+		playsound(A, "rustle", 50, TRUE, -5)
+		A.do_jiggle()
 	if(!istype(over_object, /atom/movable/screen))
 		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, M)
 		return
 	if(A.loc != M)
 		return
-	playsound(A, "rustle", 50, TRUE, -5)
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
 		var/atom/movable/screen/inventory/hand/H = over_object
 		M.putItemFromInventoryInHandIfPossible(A, H.held_index)
@@ -693,6 +695,8 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, TRUE, -5)
+	var/atom/A = parent
+	A.do_squish()
 	for(var/mob/viewing in viewers(user, null))
 		if(M == viewing)
 			to_chat(usr, SPAN_NOTICE("You put [I] [insert_preposition]to [parent]."))
@@ -856,6 +860,7 @@
 		A.add_fingerprint(user)
 		user_show_to_mob(user)
 		playsound(A, "rustle", 50, TRUE, -5)
+		A.do_jiggle()
 		return
 
 	var/obj/item/to_remove = locate() in real_location()

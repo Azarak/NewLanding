@@ -445,126 +445,6 @@
 	anchored = FALSE
 	state = WINDOW_OUT_OF_FRAME
 
-/obj/structure/window/plasma
-	name = "plasma window"
-	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
-	icon_state = "plasmawindow"
-	reinf = FALSE
-	heat_resistance = 25000
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
-	max_integrity = 150
-	explosion_block = 1
-	glass_type = /obj/item/stack/sheet/plasmaglass
-	rad_insulation = RAD_NO_INSULATION
-
-/obj/structure/window/plasma/spawnDebris(location)
-	. = list()
-	. += new /obj/item/shard/plasma(location)
-	. += new /obj/effect/decal/cleanable/glass/plasma(location)
-	if (reinf)
-		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
-	if (fulltile)
-		. += new /obj/item/shard/plasma(location)
-
-/obj/structure/window/plasma/spawner/east
-	dir = EAST
-
-/obj/structure/window/plasma/spawner/west
-	dir = WEST
-
-/obj/structure/window/plasma/spawner/north
-	dir = NORTH
-
-/obj/structure/window/plasma/unanchored
-	anchored = FALSE
-
-/obj/structure/window/plasma/reinforced
-	name = "reinforced plasma window"
-	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
-	icon_state = "plasmarwindow"
-	reinf = TRUE
-	heat_resistance = 50000
-	armor = list(MELEE = 80, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
-	max_integrity = 300
-	damage_deflection = 21
-	explosion_block = 2
-	glass_type = /obj/item/stack/sheet/plasmarglass
-
-//entirely copypasted code
-//take this out when construction is made a component or otherwise modularized in some way
-/obj/structure/window/plasma/reinforced/attackby(obj/item/I, mob/living/user, params)
-	switch(state)
-		if(RWINDOW_SECURE)
-			if(I.tool_behaviour == TOOL_WELDER && user.combat_mode)
-				user.visible_message(SPAN_NOTICE("[user] holds \the [I] to the security screws on \the [src]..."),
-										SPAN_NOTICE("You begin heating the security screws on \the [src]..."))
-				if(I.use_tool(src, user, 180, volume = 100))
-					to_chat(user, SPAN_NOTICE("The security screws are glowing white hot and look ready to be removed."))
-					state = RWINDOW_BOLTS_HEATED
-					addtimer(CALLBACK(src, .proc/cool_bolts), 300)
-				return
-		if(RWINDOW_BOLTS_HEATED)
-			if(I.tool_behaviour == TOOL_SCREWDRIVER)
-				user.visible_message(SPAN_NOTICE("[user] digs into the heated security screws and starts removing them..."),
-										SPAN_NOTICE("You dig into the heated screws hard and they start turning..."))
-				if(I.use_tool(src, user, 80, volume = 50))
-					state = RWINDOW_BOLTS_OUT
-					to_chat(user, SPAN_NOTICE("The screws come out, and a gap forms around the edge of the pane."))
-				return
-		if(RWINDOW_BOLTS_OUT)
-			if(I.tool_behaviour == TOOL_CROWBAR)
-				user.visible_message(SPAN_NOTICE("[user] wedges \the [I] into the gap in the frame and starts prying..."),
-										SPAN_NOTICE("You wedge \the [I] into the gap in the frame and start prying..."))
-				if(I.use_tool(src, user, 50, volume = 50))
-					state = RWINDOW_POPPED
-					to_chat(user, SPAN_NOTICE("The panel pops out of the frame, exposing some thin metal bars that looks like they can be cut."))
-				return
-		if(RWINDOW_POPPED)
-			if(I.tool_behaviour == TOOL_WIRECUTTER)
-				user.visible_message(SPAN_NOTICE("[user] starts cutting the exposed bars on \the [src]..."),
-										SPAN_NOTICE("You start cutting the exposed bars on \the [src]"))
-				if(I.use_tool(src, user, 30, volume = 50))
-					state = RWINDOW_BARS_CUT
-					to_chat(user, SPAN_NOTICE("The panels falls out of the way exposing the frame bolts."))
-				return
-		if(RWINDOW_BARS_CUT)
-			if(I.tool_behaviour == TOOL_WRENCH)
-				user.visible_message(SPAN_NOTICE("[user] starts unfastening \the [src] from the frame..."),
-					SPAN_NOTICE("You start unfastening the bolts from the frame..."))
-				if(I.use_tool(src, user, 50, volume = 50))
-					to_chat(user, SPAN_NOTICE("You unfasten the bolts from the frame and the window pops loose."))
-					state = WINDOW_OUT_OF_FRAME
-					set_anchored(FALSE)
-				return
-	return ..()
-
-/obj/structure/window/plasma/reinforced/examine(mob/user)
-	. = ..()
-	switch(state)
-		if(RWINDOW_SECURE)
-			. += SPAN_NOTICE("It's been screwed in with one way screws, you'd need to <b>heat them</b> to have any chance of backing them out.")
-		if(RWINDOW_BOLTS_HEATED)
-			. += SPAN_NOTICE("The screws are glowing white hot, and you'll likely be able to <b>unscrew them</b> now.")
-		if(RWINDOW_BOLTS_OUT)
-			. += SPAN_NOTICE("The screws have been removed, revealing a small gap you could fit a <b>prying tool</b> in.")
-		if(RWINDOW_POPPED)
-			. += SPAN_NOTICE("The main plate of the window has popped out of the frame, exposing some bars that look like they can be <b>cut</b>.")
-		if(RWINDOW_BARS_CUT)
-			. += SPAN_NOTICE("The main pane can be easily moved out of the way to reveal some <b>bolts</b> holding the frame in.")
-
-/obj/structure/window/plasma/reinforced/spawner/east
-	dir = EAST
-
-/obj/structure/window/plasma/reinforced/spawner/west
-	dir = WEST
-
-/obj/structure/window/plasma/reinforced/spawner/north
-	dir = NORTH
-
-/obj/structure/window/plasma/reinforced/unanchored
-	anchored = FALSE
-	state = WINDOW_OUT_OF_FRAME
-
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow"
@@ -664,63 +544,6 @@
 	max_integrity = 150
 	glass_amount = 2
 
-/obj/structure/window/shuttle
-	name = "shuttle window"
-	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/window_reinforced.dmi'
-	icon_state = "window-0"
-	base_icon_state = "window"
-	color = "#D0CBD4"
-	alpha = 180
-	max_integrity = 150
-	wtype = "shuttle"
-	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
-	reinf = TRUE
-	heat_resistance = 1600
-	armor = list(MELEE = 75, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
-	explosion_block = 3
-	glass_type = /obj/item/stack/sheet/titaniumglass
-	glass_amount = 2
-	receive_ricochet_chance_mod = 1.2
-	damage_deflection = 11
-
-/obj/structure/window/shuttle/tinted
-	opacity = TRUE
-
-/obj/structure/window/shuttle/unanchored
-	anchored = FALSE
-
-/obj/structure/window/plasma/reinforced/plastitanium
-	name = "plastitanium window"
-	desc = "A durable looking window made of an alloy of of plasma and titanium."
-	icon = 'icons/obj/smooth_structures/window_reinforced.dmi'
-	icon_state = "window-0"
-	base_icon_state = "window"
-	color = "#D0CBD4"
-	alpha = 180
-	max_integrity = 600
-	wtype = "shuttle"
-	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
-	heat_resistance = 1600
-	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
-	explosion_block = 3
-	damage_deflection = 21 //The same as reinforced plasma windows.3
-	glass_type = /obj/item/stack/sheet/plastitaniumglass
-	glass_amount = 2
-	rad_insulation = RAD_HEAVY_INSULATION
-
-/obj/structure/window/plasma/reinforced/plastitanium/unanchored
-	anchored = FALSE
-	state = WINDOW_OUT_OF_FRAME
-
 /obj/structure/window/paperframe
 	name = "paper frame"
 	desc = "A fragile separator made of thin wood and paper."
@@ -758,7 +581,7 @@
 		. += SPAN_INFO("It looks a bit damaged, you may be able to fix it with some <b>paper</b>.")
 
 /obj/structure/window/paperframe/spawnDebris(location)
-	. = list(new /obj/item/stack/sheet/mineral/wood(location))
+	. = list(new /obj/item/stack/sheet/wood(location))
 	for (var/i in 1 to rand(1,4))
 		. += new /obj/item/paper/natural(location)
 

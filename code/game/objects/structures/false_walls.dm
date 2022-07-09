@@ -77,7 +77,7 @@
 	if(density)
 		var/neighbor_stripe = NONE
 		if(!neighbor_typecache)
-			neighbor_typecache = typecacheof(list(/obj/structure/window/reinforced/fulltile, /obj/structure/window/fulltile, /obj/structure/window/shuttle))
+			neighbor_typecache = typecacheof(list(/obj/structure/window/reinforced/fulltile, /obj/structure/window/fulltile))
 		for(var/cardinal in GLOB.cardinals)
 			var/turf/step_turf = get_step(src, cardinal)
 			for(var/atom/movable/movable_thing as anything in step_turf)

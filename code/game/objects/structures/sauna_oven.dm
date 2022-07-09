@@ -49,7 +49,7 @@
 		to_chat(user, SPAN_NOTICE("You begin to deconstruct [src]."))
 		if(used_item.use_tool(src, user, 6 SECONDS, volume = 50))
 			to_chat(user, SPAN_NOTICE("You successfully deconstructed [src]."))
-			new /obj/item/stack/sheet/mineral/wood(get_turf(src), SAUNA_OVEN_WOOD_COST)
+			new /obj/item/stack/sheet/wood(get_turf(src), SAUNA_OVEN_WOOD_COST)
 			qdel(src)
 		return
 

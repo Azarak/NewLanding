@@ -402,14 +402,6 @@
 /obj/item/food/monkeycube/syndicate
 	faction = list("neutral", ROLE_SYNDICATE)
 
-/obj/item/food/monkeycube/gorilla
-	name = "gorilla cube"
-	desc = "A Waffle Co. brand gorilla cube. Now with extra molecules!"
-	bite_consumption = 20
-	food_reagents = list(/datum/reagent/monkey_powder = 30, /datum/reagent/medicine/strange_reagent = 5)
-	tastes = list("the jungle" = 1, "bananas" = 1, "jimmies" = 1)
-	spawned_mob = /mob/living/simple_animal/hostile/gorilla
-
 /obj/item/food/monkeycube/chicken
 	name = "chicken cube"
 	desc = "A new Nanotrasen classic, the chicken cube. Tastes like everything!"

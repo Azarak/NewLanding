@@ -88,7 +88,7 @@
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
 	time = 30
 	category = CAT_PRIMAL
 
@@ -271,17 +271,3 @@
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
 	return ..()
-
-/obj/item/pen/survival
-	name = "survival pen"
-	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe. Watchers find them very desirable for their diamond exterior."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "digging_pen"
-	inhand_icon_state = "pen"
-	worn_icon_state = "pen"
-	force = 3
-	w_class = WEIGHT_CLASS_TINY
-	custom_materials = list(/datum/material/iron=10, /datum/material/diamond=100, /datum/material/titanium = 10)
-	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
-	tool_behaviour = TOOL_MINING //For the classic "digging out of prison with a spoon but you're in space so this analogy doesn't work" situation.
-	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.

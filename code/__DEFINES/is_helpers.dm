@@ -131,13 +131,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isfalsewall(A) (istype(A, /obj/structure/falsewall))
 
-GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
-	/obj/item/stack/sheet/glass,
-	/obj/item/stack/sheet/rglass,
-	/obj/item/stack/sheet/plasmaglass,
-	/obj/item/stack/sheet/plasmarglass,
-	/obj/item/stack/sheet/titaniumglass,
-	/obj/item/stack/sheet/plastitaniumglass)))
+GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(/obj/item/stack/sheet/glass, /obj/item/stack/sheet/rglass)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 

@@ -433,7 +433,8 @@ SUBSYSTEM_DEF(job)
 			if(job.required_playtime_remaining(player.client))
 				young++
 				continue
-			switch(player.client.prefs.job_preferences[main_jobs.type][job.type])
+			var/list/pref_list = player.client.prefs.job_preferences[main_jobs.type] || list()
+			switch(pref_list[job.type])
 				if(JP_HIGH)
 					high++
 				if(JP_MEDIUM)

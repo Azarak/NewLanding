@@ -24,10 +24,6 @@
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/pizzaslice/MakeProcessable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, /obj/item/stack/sheet/pizza, 1, 10)
-
-
 /obj/item/food/pizza/margherita
 	name = "pizza margherita"
 	desc = "The most cheezy pizza in galaxy."

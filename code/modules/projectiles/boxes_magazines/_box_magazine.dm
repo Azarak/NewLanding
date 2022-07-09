@@ -36,8 +36,8 @@
 /obj/item/ammo_box/Initialize()
 	. = ..()
 	if(!bullet_cost)
-		base_cost = SSmaterials.FindOrCreateMaterialCombo(custom_materials, 0.1)
-		bullet_cost = SSmaterials.FindOrCreateMaterialCombo(custom_materials, 0.9 / max_ammo)
+		base_cost = get_material_list_cache(custom_materials)
+		bullet_cost = get_material_list_cache(custom_materials)
 	if(!start_empty)
 		top_off(starting=TRUE)
 

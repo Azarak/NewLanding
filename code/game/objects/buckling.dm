@@ -38,7 +38,7 @@
 	carried_mob.forceMove(get_turf(src))
 	return mouse_buckle_handling(carried_mob, user)
 
-/atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
+/atom/movable/mouse_dropped(mob/living/M, mob/living/user)
 	. = ..()
 	return mouse_buckle_handling(M, user)
 

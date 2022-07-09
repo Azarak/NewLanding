@@ -303,7 +303,7 @@
 	throwforce = 6
 	throw_speed = 2
 	throw_range = 5
-	custom_materials = list(/datum/material/iron=8000, /datum/material/titanium=6000)
+	custom_materials = list(/datum/material/iron=8000)
 	attack_verb_continuous = list("shears", "snips")
 	attack_verb_simple = list("shear", "snip")
 	sharpness = SHARP_EDGED

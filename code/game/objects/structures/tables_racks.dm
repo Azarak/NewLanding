@@ -225,7 +225,7 @@
 			new buildstack(T, buildstackamount)
 		else
 			for(var/i in custom_materials)
-				var/datum/material/M = i
+				var/datum/material/M = GET_MATERIAL_REF(i)
 				new M.sheet_type(T, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 		if(!wrench_disassembly)
 			new frame(T)
@@ -298,10 +298,7 @@
 /obj/structure/table/glass/Initialize()
 	. = ..()
 	debris += new frame
-	if(buildstack == /obj/item/stack/sheet/plasmaglass)
-		debris += new /obj/item/shard/plasma
-	else
-		debris += new /obj/item/shard
+	debris += new /obj/item/shard
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -359,16 +356,6 @@
 				debris -= AM
 	qdel(src)
 
-/obj/structure/table/glass/plasmaglass
-	name = "plasma glass table"
-	desc = "Someone thought this was a good idea."
-	icon = 'icons/obj/smooth_structures/plasmaglass_table.dmi'
-	icon_state = "plasmaglass_table-0"
-	base_icon_state = "plasmaglass_table"
-	custom_materials = list(/datum/material/alloy/plasmaglass = 2000)
-	buildstack = /obj/item/stack/sheet/plasmaglass
-	max_integrity = 100
-
 /*
  * Wooden tables
  */
@@ -380,8 +367,8 @@
 	icon_state = "wood_table-0"
 	base_icon_state = "wood_table"
 	frame = /obj/structure/table_frame/wood
-	framestack = /obj/item/stack/sheet/mineral/wood
-	buildstack = /obj/item/stack/sheet/mineral/wood
+	framestack = /obj/item/stack/sheet/wood
+	buildstack = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
@@ -469,7 +456,7 @@
 	icon_state = "reinforced_table-0"
 	base_icon_state = "reinforced_table"
 	deconstruction_ready = 0
-	buildstack = /obj/item/stack/sheet/plasteel
+	buildstack = /obj/item/stack/sheet/steel
 	max_integrity = 200
 	integrity_failure = 0.25
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
@@ -523,35 +510,6 @@
 	buildstack = /obj/item/stack/sheet/rglass
 	max_integrity = 150
 
-/obj/structure/table/reinforced/plasmarglass
-	name = "reinforced plasma glass table"
-	desc = "A reinforced version of the plasma glass table."
-	icon = 'icons/obj/smooth_structures/rplasmaglass_table.dmi'
-	icon_state = "rplasmaglass_table-0"
-	base_icon_state = "rplasmaglass_table"
-	custom_materials = list(/datum/material/alloy/plasmaglass = 2000, /datum/material/iron = 2000)
-	buildstack = /obj/item/stack/sheet/plasmarglass
-
-/obj/structure/table/reinforced/titaniumglass
-	name = "titanium glass table"
-	desc = "A titanium reinforced glass table, with a fresh coat of NT white paint."
-	icon = 'icons/obj/smooth_structures/titaniumglass_table.dmi'
-	icon_state = "titaniumglass_table-o"
-	base_icon_state = "titaniumglass_table"
-	custom_materials = list(/datum/material/alloy/titaniumglass = 2000)
-	buildstack = /obj/item/stack/sheet/titaniumglass
-	max_integrity = 250
-
-/obj/structure/table/reinforced/plastitaniumglass
-	name = "plastitanium glass table"
-	desc = "A table made of titanium reinforced silica-plasma composite. About as durable as it sounds."
-	icon = 'icons/obj/smooth_structures/plastitaniumglass_table.dmi'
-	icon_state = "plastitaniumglass_table-0"
-	base_icon_state = "plastitaniumglass_table"
-	custom_materials = list(/datum/material/alloy/plastitaniumglass = 2000)
-	buildstack = /obj/item/stack/sheet/plastitaniumglass
-	max_integrity = 300
-
 /*
  * Racks
  */
@@ -579,7 +537,7 @@
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
 		return TRUE
 
-/obj/structure/rack/MouseDrop_T(obj/O, mob/user)
+/obj/structure/rack/mouse_dropped(obj/O, mob/user)
 	. = ..()
 	if ((!( istype(O, /obj/item) ) || user.get_active_held_item() != O))
 		return

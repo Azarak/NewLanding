@@ -31,7 +31,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
-	var/foldable = /obj/item/stack/sheet/cardboard
+	var/foldable
 	var/illustration = "writing"
 
 /obj/item/storage/box/Initialize(mapload)

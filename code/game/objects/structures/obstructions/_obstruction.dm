@@ -52,6 +52,12 @@
 	/// How long does it take to climb on the obstruction.
 	var/obstruction_climb_time = 2 SECONDS
 
+/obj/structure/obstruction/Initialize()
+	. = ..()
+	/// If it's climbable, it should allow things to pass through it
+	if(obstruction_climbable)
+		pass_flags_self = PASSTABLE | LETPASSTHROW
+
 /obj/structure/obstruction/ex_act(severity, target)
 	if(isnull(explosion_clear_severity) || severity < explosion_clear_severity)
 		return
@@ -112,7 +118,7 @@
 
 /obj/structure/obstruction/proc/user_clear_action(mob/living/user, obj/item/item)
 	if(required_tool && item.tool_behaviour != required_tool)
-		to_chat(user, SPAN_WARNING("You can't quite figure out how to \the [src] with \the [item]."))
+		to_chat(user, SPAN_WARNING("You can't quite figure out how to clear \the [src] with \the [item]."))
 		return TRUE
 	user.visible_message(
 		SPAN_NOTICE("[user] starts clearing \the [src] with \the [item]."), 
