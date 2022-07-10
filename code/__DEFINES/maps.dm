@@ -108,7 +108,7 @@ require only minor tweaks.
 
 #define TRANSIT_SIZE_BORDER 3
 
-#define MAP_EDGE_PAD 5
+#define MAP_EDGE_PAD 3
 
 //Helpful getters
 #define STATION_OVERMAP_OBJECT SSmapping.station_map_zone.related_overmap_object

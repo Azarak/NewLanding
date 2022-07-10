@@ -135,10 +135,8 @@
 		var/area/my_area = i
 		if(!mapzone.is_in_bounds(my_area))
 			continue
-		if(!my_area.outdoors)
+		if(!my_area.outdoors || my_area.underground)
 			possible_blending_areas += my_area
-			continue
-		if(my_area.underground)
 			continue
 		affected_areas += my_area
 	for(var/i in possible_blending_areas)

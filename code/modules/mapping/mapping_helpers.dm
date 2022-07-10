@@ -224,11 +224,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/obj/structure/closet/closet = locate() in my_turf
 	if(closet && closet.can_have_lock)
 		closet.install_lock(lock)
+		lock.set_locked_state(TRUE)
 		qdel(src)
 		return
 	var/obj/structure/door/door = locate() in my_turf
 	if(door && door.can_have_lock)
 		door.install_lock(lock)
+		lock.set_locked_state(TRUE)
 		qdel(src)
 		return
 	qdel(lock)

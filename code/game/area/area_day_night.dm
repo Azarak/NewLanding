@@ -97,7 +97,7 @@
 	day_night_turf_appearance_translation = null
 
 /area/proc/UpdateDayNightTurfs(rebuild = FALSE, datum/day_night_controller/newsub, full_unsub = FALSE, find_controller = FALSE)
-	if(outdoors)
+	if(outdoors && !underground)
 		return
 	if(find_controller)
 		if(SSmapping && SSmapping.z_list) //Goddamn areas that initialize out of order?!

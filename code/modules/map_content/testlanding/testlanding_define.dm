@@ -13,6 +13,14 @@
 			),
 		list(
 			"Down" = -1,
+			"Up" = 1,
+			),
+		list(
+			"Down" = -1,
+			"Up" = 1,
+			),
+		list(
+			"Down" = -1,
 			)
 		)
 
