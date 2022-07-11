@@ -184,7 +184,6 @@
 		return
 
 	// [user] gives [target] a [prefix_desc] noogie[affix_desc]!
-	var/brutal_noogie = FALSE // was it an extra hard noogie?
 	var/prefix_desc = "rough"
 	var/affix_desc = ""
 	var/affix_desc_target = ""
@@ -193,10 +192,8 @@
 		prefix_desc = "violent"
 		affix_desc = "on [target.p_their()] sensitive antennae"
 		affix_desc_target = "on your highly sensitive antennae"
-		brutal_noogie = TRUE
 	if(user.dna?.check_mutation(HULK))
 		prefix_desc = "sickeningly brutal"
-		brutal_noogie = TRUE
 
 	var/message_others = "[prefix_desc] noogie[affix_desc]"
 	var/message_target = "[prefix_desc] noogie[affix_desc_target]"
@@ -208,11 +205,6 @@
 		to_chat(user, SPAN_WARNING("You fail to give [target] a noogie!"))
 		to_chat(target, SPAN_DANGER("[user] fails to give you a noogie!"))
 		return
-
-	if(brutal_noogie)
-		SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "noogie_harsh", /datum/mood_event/noogie_harsh)
-	else
-		SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "noogie", /datum/mood_event/noogie)
 
 	noogie_loop(user, target, 0)
 

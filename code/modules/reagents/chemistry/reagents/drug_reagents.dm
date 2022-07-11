@@ -4,10 +4,6 @@
 	taste_description = "bitterness"
 	var/trippy = TRUE //Does this drug make you trip?
 
-/datum/reagent/drug/on_mob_end_metabolize(mob/living/M)
-	if(trippy)
-		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "[type]_high")
-
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	description = "An illegal chemical compound used as drug."
@@ -27,7 +23,6 @@
 
 /datum/reagent/drug/space_drugs/overdose_start(mob/living/M)
 	to_chat(M, SPAN_USERDANGER("You start tripping hard!"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M, delta_time, times_fired)
 	if(M.hallucination < volume && DT_PROB(10, delta_time))
@@ -51,7 +46,6 @@
 	if(DT_PROB(0.5, delta_time))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
 		to_chat(M, SPAN_NOTICE("[smoke_message]"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
 	M.Jitter(0) //calms down any withdrawal jitters
 	M.AdjustStun(-50  * REM * delta_time)
 	M.AdjustKnockdown(-50 * REM * delta_time)
@@ -81,7 +75,6 @@
 	if(DT_PROB(2.5, delta_time))
 		var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
 		to_chat(M, SPAN_NOTICE("[high_message]"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
 	M.AdjustStun(-20 * REM * delta_time)
 	M.AdjustKnockdown(-20 * REM * delta_time)
 	M.AdjustUnconscious(-20 * REM * delta_time)
@@ -112,7 +105,6 @@
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(DT_PROB(2.5, delta_time))
 		to_chat(M, SPAN_NOTICE("[high_message]"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "smacked out", /datum/mood_event/narcotic_heavy, name)
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/M, delta_time, times_fired)
@@ -146,7 +138,6 @@
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(DT_PROB(2.5, delta_time))
 		to_chat(M, SPAN_NOTICE("[high_message]"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
 	M.AdjustStun(-40 * REM * delta_time)
 	M.AdjustKnockdown(-40 * REM * delta_time)
 	M.AdjustUnconscious(-40 * REM * delta_time)
@@ -206,7 +197,6 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(DT_PROB(2.5, delta_time))
 		to_chat(M, SPAN_NOTICE("[high_message]"))
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "salted", /datum/mood_event/stimulant_heavy, name)
 	M.adjustStaminaLoss(-5 * REM * delta_time, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4 * REM * delta_time)
 	M.hallucination += 5 * REM * delta_time
@@ -260,11 +250,9 @@
 /datum/reagent/drug/happiness/on_mob_metabolize(mob/living/L)
 	..()
 	ADD_TRAIT(L, TRAIT_FEARLESS, type)
-	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
 
 /datum/reagent/drug/happiness/on_mob_delete(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_FEARLESS, type)
-	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
 	..()
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -281,13 +269,11 @@
 		switch(reaction)
 			if(1)
 				M.emote("laugh")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
 			if(2)
 				M.emote("sway")
 				M.Dizzy(25)
 			if(3)
 				M.emote("frown")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * REM * delta_time)
 	..()
 	. = TRUE

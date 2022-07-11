@@ -552,8 +552,6 @@
 	if (!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
-	if (length(client_mobs_in_contents))
-		update_parallax_contents()
 
 	move_stacks--
 	if(move_stacks > 0)

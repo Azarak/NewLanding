@@ -223,7 +223,6 @@
 	if(!(locate(/mob/living/carbon) in orange(1, src)))
 		visible_message(SPAN_DANGER("[src] raises [p_their()] arm, looking around for a high-five, but there's no one around! How embarassing..."), \
 			SPAN_WARNING("You post up, looking for a high-five, but finding no one within range! How embarassing..."), null, 2)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/high_five_alone)
 		return
 
 	apply_status_effect(STATUS_EFFECT_HIGHFIVE, slap)

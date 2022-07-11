@@ -39,10 +39,9 @@
 /datum/component/omen/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/check_accident)
 	RegisterSignal(parent, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/check_slip)
-	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, .proc/check_bless)
 
 /datum/component/omen/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_ADD_MOOD_EVENT))
+	UnregisterSignal(parent, list(COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED))
 
 /**
  * check_accident() is called each step we take
@@ -89,15 +88,3 @@
 	our_guy.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
 	if(!permanent)
 		qdel(src)
-
-/// Hijack the mood system to see if we get the blessing mood event to cancel the omen
-/datum/component/omen/proc/check_bless(mob/living/our_guy, category)
-	SIGNAL_HANDLER
-
-	if(permanent)
-		return
-
-	if(category != "blessing")
-		return
-
-	qdel(src)

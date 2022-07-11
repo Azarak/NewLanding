@@ -361,10 +361,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	vlevel.reserve_margin(TRANSIT_SIZE_BORDER)
 
-	mapzone.parallax_movedir = travel_dir
-
 	var/area/shuttle/transit/transit_area = new()
-	transit_area.parallax_movedir = travel_dir
 
 	vlevel.fill_in(transit_path, transit_area)
 

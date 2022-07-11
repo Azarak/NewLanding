@@ -152,17 +152,6 @@
 	. = ..()
 	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
 
-///Contains space parallax
-/atom/movable/screen/plane_master/parallax
-	name = "parallax plane master"
-	plane = PLANE_SPACE_PARALLAX
-	blend_mode = BLEND_MULTIPLY
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/plane_master/parallax_white
-	name = "parallax whitifier plane master"
-	plane = PLANE_SPACE
-
 /atom/movable/screen/plane_master/camera_static
 	name = "camera static plane master"
 	plane = CAMERA_STATIC_PLANE

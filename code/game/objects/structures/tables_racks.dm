@@ -138,7 +138,6 @@
 	pushed_mob.visible_message(SPAN_DANGER("[user] slams [pushed_mob] onto \the [src]!"), \
 								SPAN_USERDANGER("[user] slams you onto \the [src]!"))
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]")
-	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 
 /obj/structure/table/proc/tablelimbsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
@@ -155,7 +154,6 @@
 	pushed_mob.visible_message(SPAN_DANGER("[user] smashes [pushed_mob]'s [banged_limb.name] against \the [src]!"),
 								SPAN_USERDANGER("[user] smashes your [banged_limb.name] against \the [src]"))
 	log_combat(user, pushed_mob, "head slammed", null, "against [src]")
-	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_limbsmash, banged_limb)
 
 /obj/structure/table/attackby(obj/item/I, mob/living/user, params)
 	var/list/modifiers = params2list(params)

@@ -568,10 +568,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BLOODDRUNK_TRAIT "blooddrunk"
 /// Trait granted by lipstick
 #define LIPSTICK_TRAIT "lipstick_trait"
-/// Self-explainatory.
-#define BEAUTY_ELEMENT_TRAIT "beauty_element"
-#define MOOD_COMPONENT_TRAIT "mood_component"
-#define DRONE_SHY_TRAIT "drone_shy"
 /// Pacifism trait given by stabilized light pink extracts.
 #define STABILIZED_LIGHT_PINK_TRAIT "stabilized_light_pink"
 

@@ -56,14 +56,6 @@
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	return pressure
 
-
-/mob/living/carbon/human/handle_traits(delta_time, times_fired)
-	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
-	return ..()
-
 /mob/living/carbon/human/handle_mutations_and_radiation(delta_time, times_fired)
 	if(!dna || !dna.species.handle_mutations_and_radiation(src, delta_time, times_fired))
 		..()

@@ -4,7 +4,6 @@
 	var/static/next_id = 0
 	var/next_vlevel_id = 0
 	var/list/traits
-	var/parallax_movedir
 	///Extensions for z levels as overmap objects
 	var/list/all_extensions = list()
 	/// Weather controller for this level

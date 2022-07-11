@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	var/meat = /obj/item/food/meat/slab/human
 	///What skin the species drops when gibbed by a gibber machine.
 	var/skinned_type
-	///Bitfield for food types that the species likes, giving them a mood boost. Lizards like meat, for example.
+	///Bitfield for food types that the species likes, giving them a nice message. Lizards like meat, for example.
 	var/liked_food = NONE
 	///Bitfield for food types that the species dislikes, giving them disgust. Humans hate raw food, for example.
 	var/disliked_food = GROSS
@@ -558,8 +558,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		for(var/i in inherent_factions)
 			C.faction -= i
 
-	clear_tail_moodlets(C)
-
 	if(ROBOTIC_LIMBS in species_traits)
 		for(var/obj/item/bodypart/B in C.bodyparts)
 			B.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
@@ -829,9 +827,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
 		// THEY HUNGER
 		var/hunger_rate = HUNGER_FACTOR
-		var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
-		if(mood && mood.sanity > SANITY_DISTURBED)
-			hunger_rate *= max(1 - 0.002 * mood.sanity, 0.5) //0.85 to 0.75
 		// Whether we cap off our satiety or move it towards 0
 		if(H.satiety > MAX_SATIETY)
 			H.satiety = MAX_SATIETY
@@ -870,14 +865,12 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			to_chat(H, SPAN_NOTICE("You no longer feel vigorous."))
 		H.metabolism_efficiency = 1
 
-	//Hunger slowdown for if mood isn't enabled
-	if(CONFIG_GET(flag/disable_human_mood))
-		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
-			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
-			if(hungry >= 70)
-				H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-			else
-				H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+	if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
+		var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
+		if(hungry >= 70)
+			H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
+		else
+			H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
@@ -1360,10 +1353,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 /datum/species/proc/body_temperature_alerts(mob/living/carbon/human/humi)
 	// Body temperature is too hot, and we do not have resist traits
 	if(humi.bodytemperature > bodytemp_heat_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTHEAT))
-		// Clear cold mood and apply hot mood
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
-		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "hot", /datum/mood_event/hot)
-
 		//Remove any slowdown from the cold.
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 		// display alerts based on how hot it is
@@ -1377,9 +1366,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 	// Body temperature is too cold, and we do not have resist traits
 	else if(humi.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
-		// clear any hot moods and apply cold mood
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
-		SEND_SIGNAL(humi, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
 		// Apply cold slow down
 		humi.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((bodytemp_cold_damage_limit - humi.bodytemperature) / COLD_SLOWDOWN_FACTOR))
 		// Display alerts based how cold it is
@@ -1391,12 +1377,10 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			else
 				humi.throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 
-	// We are not to hot or cold, remove status and moods
+	// We are not to hot or cold, remove status.
 	else
 		humi.clear_alert("temp")
 		humi.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "cold")
-		SEND_SIGNAL(humi, COMSIG_CLEAR_MOOD_EVENT, "hot")
 
 /**
  * Used to apply wounds and damage based on core/body temp
@@ -1599,7 +1583,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			H.adjust_bodytemperature(5.5 * delta_time)
 		else
 			H.adjust_bodytemperature((BODYTEMP_HEATING_MAX + (H.fire_stacks * 12)) * 0.5 * delta_time)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))
@@ -1671,13 +1654,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
  * on_species_init - whether or not this was called when the species was initialized, or if it was called due to an ingame means (like surgery)
  */
 /datum/species/proc/on_tail_regain(mob/living/carbon/human/tail_owner, obj/item/organ/tail/found_tail, on_species_init = FALSE)
-	return
-/*
- * Clears all tail related moodlets when they lose their species.
- *
- * former_tail_owner - the mob that was once a species with a tail and now is a different species
- */
-/datum/species/proc/clear_tail_moodlets(mob/living/carbon/human/former_tail_owner)
 	return
 
 /datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)

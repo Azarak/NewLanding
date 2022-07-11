@@ -44,12 +44,6 @@
 
 #define TOGGLES_DEFAULT_CHAT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_PULLR|CHAT_GHOSTWHISPER|CHAT_GHOSTPDA|CHAT_GHOSTRADIO|CHAT_BANKCARD|CHAT_GHOSTLAWS|CHAT_LOGIN_LOGOUT)
 
-#define PARALLAX_INSANE -1 //for show offs
-#define PARALLAX_HIGH    0 //default.
-#define PARALLAX_MED     1
-#define PARALLAX_LOW     2
-#define PARALLAX_DISABLE 3 //this option must be the highest number
-
 #define BALLOON_ALERTS_NONE 0  // No balloons, msg to chat
 #define BALLOON_ALERTS_ONLY 1  // Only balloons, no chat
 #define BALLOON_ALERTS_BOTH 2  // Both, balloons & chat
@@ -64,10 +58,6 @@
 #define SCALING_METHOD_NORMAL "normal"
 #define SCALING_METHOD_DISTORT "distort"
 #define SCALING_METHOD_BLUR "blur"
-
-#define PARALLAX_DELAY_DEFAULT world.tick_lag
-#define PARALLAX_DELAY_MED     1
-#define PARALLAX_DELAY_LOW     2
 
 #define SEC_DEPT_NONE "None"
 #define SEC_DEPT_ENGINEERING "Engineering"

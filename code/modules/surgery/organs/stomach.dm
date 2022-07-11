@@ -141,22 +141,17 @@
 	switch(disgusted.disgust)
 		if(0 to DISGUST_LEVEL_GROSS)
 			disgusted.clear_alert("disgust")
-			SEND_SIGNAL(disgusted, COMSIG_CLEAR_MOOD_EVENT, "disgust")
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/gross)
-			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/gross)
 		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/verygross)
-			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/verygross)
 		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
 			disgusted.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
-			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
 /obj/item/organ/stomach/Remove(mob/living/carbon/stomach_owner, special = 0)
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.clear_alert("disgust")
-		SEND_SIGNAL(human_owner, COMSIG_CLEAR_MOOD_EVENT, "disgust")
 
 	return ..()
 

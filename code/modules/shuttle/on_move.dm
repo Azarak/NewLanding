@@ -118,8 +118,6 @@ All ShuttleMove procs go here
 	if(proximity_monitor)
 		proximity_monitor.HandleMove()
 
-	update_parallax_contents()
-
 	return TRUE
 
 /atom/movable/proc/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
@@ -158,7 +156,6 @@ All ShuttleMove procs go here
 		QDEL_NULL(oldT.shuttle_roof)
 
 	var/area/old_dest_area = newT.loc
-	parallax_movedir = old_dest_area.parallax_movedir
 
 	old_dest_area.contents -= newT
 	contents += newT
@@ -171,8 +168,7 @@ All ShuttleMove procs go here
 	return TRUE
 
 // Called on areas after everything has been moved
-/area/proc/afterShuttleMove(new_parallax_dir)
-	parallax_movedir = new_parallax_dir
+/area/proc/afterShuttleMove()
 	UpdateDayNightTurfs(find_controller = TRUE)
 	return TRUE
 

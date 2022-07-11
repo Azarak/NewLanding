@@ -287,11 +287,6 @@
 		flashy.color = "#C62727"
 	. += flashy
 
-/atom/movable/screen/spacesuit
-	name = "Space suit cell status"
-	icon_state = "spacesuit_0"
-	screen_loc = ui_spacesuit
-
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/hud/screen_midnight.dmi'
@@ -524,30 +519,6 @@
 	icon_state = "health0"
 	screen_loc = ui_health
 
-/atom/movable/screen/healths/blob
-	name = "blob health"
-	icon_state = "block"
-	screen_loc = ui_internal
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/blob/overmind
-	name = "overmind health"
-	icon = 'icons/hud/blob.dmi'
-	icon_state = "corehealth"
-	screen_loc = ui_blobbernaut_overmind_health
-
-/atom/movable/screen/healths/guardian
-	name = "summoner health"
-	icon = 'icons/mob/guardian.dmi'
-	icon_state = "base"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/atom/movable/screen/healths/revenant
-	name = "essence"
-	icon = 'icons/mob/actions/backgrounds.dmi'
-	icon_state = "bg_revenant"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
 /atom/movable/screen/stamina
 	name = "stamina"
 	icon = 'icons/hud/screen_stamina.dmi'
@@ -567,14 +538,6 @@
 	icon_state = "fullhealth0"
 	screen_loc = ui_living_healthdoll
 	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
-
-/atom/movable/screen/mood
-	name = "mood"
-	icon_state = "mood5"
-	screen_loc = ui_mood
-
-/atom/movable/screen/mood/attack_tk()
-	return
 
 /atom/movable/screen/splash
 	icon = 'icons/blank_title.png'

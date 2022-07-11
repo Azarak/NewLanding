@@ -101,8 +101,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/clientfps = 40
 
-	var/parallax
-
 	/// Does the user see balloon alerts (minor actions), or chat messages, or both?
 	var/balloon_alerts_pref = BALLOON_ALERTS_BOTH
 
@@ -837,20 +835,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 
-			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallaxdown' oncontextmenu='window.location.href=\"?_src_=prefs;preference=parallaxup\";return false;'>"
-			switch (parallax)
-				if (PARALLAX_LOW)
-					dat += "Low"
-				if (PARALLAX_MED)
-					dat += "Medium"
-				if (PARALLAX_INSANE)
-					dat += "Insane"
-				if (PARALLAX_DISABLE)
-					dat += "Disabled"
-				else
-					dat += "High"
-			dat += "</a><br>"
-
 			switch(balloon_alerts_pref)
 				if (BALLOON_ALERTS_NONE)
 					button_name = "Disabled (Chat only)"
@@ -1324,9 +1308,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for(var/_V in all_quirks)
 				if(_V == quirk_name)
 					has_quirk = TRUE
-			if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
-				lock_reason = "Mood is disabled."
-				quirk_conflict = TRUE
 			if(has_quirk)
 				if(quirk_conflict)
 					all_quirks -= quirk_name
@@ -2257,16 +2238,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("allow_midround_antag")
 					toggles ^= MIDROUND_ANTAG
-
-				if("parallaxup")
-					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
-					if (parent && parent.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref(parent.mob)
-
-				if("parallaxdown")
-					parallax = WRAP(parallax - 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
-					if (parent && parent.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("balloon_alerts_pref")
 					balloon_alerts_pref = WRAP(balloon_alerts_pref + 1, BALLOON_ALERTS_NONE, BALLOON_ALERTS_BOTH + 1)

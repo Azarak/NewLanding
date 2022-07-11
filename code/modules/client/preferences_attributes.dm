@@ -132,7 +132,7 @@
 	dat += "<center><i>Here you can customize your character's attributes and skills by pressing the +1 and -1 buttons.</i></center>"
 	dat += "<table width='100%'>"
 	dat += "<center><h2>Attributes:</h2></center>"
-	dat += "<center><i>Attributes define your character's strengths and weaknesses, aswell as impact your skills.<BR>Stimulants, drugs, moods, and other things may affect them.</i></center>"
+	dat += "<center><i>Attributes define your character's strengths and weaknesses, aswell as impact your skills.<BR>Stimulants, drugs, needs, and other things may affect them.</i></center>"
 	dat += "<b>Points remaining: [remaining_attribute_points()]</b>"
 	dat += "<tr>"
 	dat += "<td width='15%'></td>" //Name

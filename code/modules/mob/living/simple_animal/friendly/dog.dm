@@ -269,7 +269,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		user.visible_message(SPAN_NOTICE("[user] pets [src]."), SPAN_NOTICE("You rest your hand on [src]'s head for a moment."))
 		if(flags_1 & HOLOGRAM_1)
 			return
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
 		return
 
 	if(user && !user.temporarilyRemoveItemFromInventory(item_to_add))

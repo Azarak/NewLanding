@@ -159,19 +159,9 @@
 	///A lazy list of atoms we've examined in the last EXAMINE_MORE_TIME (default 1.5) seconds, so that we will call [/atom/proc/examine_more] instead of [/atom/proc/examine] on them when examining
 	var/list/recent_examines
 
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
 	var/atom/movable/movingmob
 	var/turf/previous_turf
-	///world.time of when we can state animate()ing parallax again
-	var/dont_animate_parallax
-	///world.time of last parallax update
-	var/last_parallax_shift
-	///ds between parallax updates
-	var/parallax_throttle = 0
-	var/parallax_movedir = 0
-	var/parallax_layers_max = 4
-	var/parallax_animate_timer
+
 	///Are we locking our movement input?
 	var/movement_locked = FALSE
 

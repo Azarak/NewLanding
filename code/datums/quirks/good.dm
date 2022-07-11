@@ -10,23 +10,6 @@
 	lose_text = SPAN_DANGER("You don't feel as resistant to alcohol anymore. Somehow.")
 	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
 
-/datum/quirk/apathetic
-	name = "Apathetic"
-	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
-	value = 4
-	mood_quirk = TRUE
-	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
-
-/datum/quirk/apathetic/add()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.2
-
-/datum/quirk/apathetic/remove()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.2
-
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
@@ -67,24 +50,6 @@
 	gain_text = SPAN_NOTICE("You feel lithe on your feet!")
 	lose_text = SPAN_DANGER("You feel clumsy again.")
 	medical_record_text = "Patient scored highly on cardio tests."
-
-/datum/quirk/friendly
-	name = "Friendly"
-	desc = "You give the best hugs, especially when you're in the right mood."
-	value = 2
-	mob_trait = TRAIT_FRIENDLY
-	gain_text = SPAN_NOTICE("You want to hug someone.")
-	lose_text = SPAN_DANGER("You no longer feel compelled to hug others.")
-	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
-
-/datum/quirk/jolly
-	name = "Jolly"
-	desc = "You sometimes just feel happy, for no reason at all."
-	value = 4
-	mob_trait = TRAIT_JOLLY
-	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
 
 /datum/quirk/light_step
 	name = "Light Step"

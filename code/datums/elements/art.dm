@@ -20,16 +20,12 @@
 	var/msg
 	switch(impress)
 		if(GREAT_ART to INFINITY)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgreat", /datum/mood_event/artgreat)
 			msg = "What \a [pick("masterpiece", "chef-d'oeuvre")] [source.p_theyre()]. So [pick("trascended", "awe-inspiring", "bewitching", "impeccable")]!"
 		if (GOOD_ART to GREAT_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artgood", /datum/mood_event/artgood)
 			msg = "[source.p_theyre(TRUE)] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
 		if (BAD_ART to GOOD_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artok", /datum/mood_event/artok)
 			msg = "[source.p_theyre(TRUE)] fair to middling, enough to be called an \"art object\"."
 		if (0 to BAD_ART)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
 	user.visible_message(SPAN_NOTICE("[user] stops and looks intently at [source]."), \

@@ -36,11 +36,6 @@
 	randomize_human(src)
 	dna.initialize_dna()
 
-/mob/living/carbon/human/ComponentInitialize()
-	. = ..()
-	if(!CONFIG_GET(flag/disable_human_mood))
-		AddComponent(/datum/component/mood)
-
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bioware)
@@ -464,7 +459,6 @@
 			return FALSE
 
 		visible_message(SPAN_NOTICE("[src] performs CPR on [target.name]!"), SPAN_NOTICE("You perform CPR on [target.name]."))
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "saved_life", /datum/mood_event/saved_life)
 		log_combat(src, target, "CPRed")
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))

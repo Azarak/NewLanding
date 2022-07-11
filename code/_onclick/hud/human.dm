@@ -249,10 +249,6 @@
 	rest_icon.hud = src
 	static_inventory += rest_icon
 
-	spacesuit = new /atom/movable/screen/spacesuit
-	spacesuit.hud = src
-	infodisplay += spacesuit
-
 	healths = new /atom/movable/screen/healths()
 	healths.hud = src
 	infodisplay += healths
