@@ -76,6 +76,8 @@
 	//Defaults to zero so Ian can still be cuddly. Moved up the tree to living! This allows us to bypass some hardcoded stuff.
 	melee_damage_lower = 0
 	melee_damage_upper = 0
+	/// Multiplier of pain that the mob's attacks inflict
+	var/pain_multiplier = SIMPLE_MOB_ATTACK_PAIN_MULTIPLIER
 	///how much damage this simple animal does to objects, if any.
 	var/obj_damage = 0
 	///How much armour they ignore, as a flat reduction from the targets armour value.

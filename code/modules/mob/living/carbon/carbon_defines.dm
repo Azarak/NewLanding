@@ -10,6 +10,8 @@
 	usable_hands = 0 //Populated on init through list/bodyparts
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	blocks_emissive = NONE
+	health = 200
+	maxHealth = 200
 	///List of [/obj/item/organ] in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/internal_organs = list()
 	///Same as [above][/mob/living/carbon/var/internal_organs], but stores "slot ID" - "organ" pairs for easy access.
@@ -82,8 +84,6 @@
 
 	///Overall drunkenness
 	var/drunkenness = 0
-	///used to halt stamina regen temporarily
-	var/stam_regen_start_time = 0
 
 	/// Protection (insulation) from the heat, Value 0-1 corresponding to the percentage of protection
 	var/heat_protection = 0 // No heat protection

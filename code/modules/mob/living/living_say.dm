@@ -62,10 +62,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
  * Associated values are their maximum allowed mob stats.
  */
 GLOBAL_LIST_INIT(message_modes_stat_limits, list(
-	MODE_INTERCOM = HARD_CRIT,
-	MODE_ALIEN = HARD_CRIT,
-	MODE_BINARY = HARD_CRIT, //extra stat check on human/binarycheck()
-	MODE_MONKEY = HARD_CRIT
+	MODE_INTERCOM = UNCONSCIOUS,
+	MODE_ALIEN = UNCONSCIOUS,
+	MODE_BINARY = UNCONSCIOUS, //extra stat check on human/binarycheck()
+	MODE_MONKEY = UNCONSCIOUS
 ))
 
 /mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
@@ -135,16 +135,14 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			message_mods -= RADIO_EXTENSION
 
 	switch(stat)
-		if(SOFT_CRIT)
-			message_mods[WHISPER_MODE] = MODE_WHISPER
 		if(UNCONSCIOUS)
 			return
-		if(HARD_CRIT)
-			if(!message_mods[WHISPER_MODE])
-				return
 		if(DEAD)
 			say_dead(original_message)
 			return
+
+	if(shock_stat != SHOCK_NONE) //Should pain crit also restrict speech like this?
+		message_mods[WHISPER_MODE] = MODE_WHISPER
 
 	if(!can_speak_basic(original_message, ignore_spam, forced))
 		return
@@ -173,7 +171,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 	if(message_mods[WHISPER_MODE] == MODE_WHISPER)
 		message_range = 1
 		log_talk(message, LOG_WHISPER)
-		if(stat == HARD_CRIT)
+		if(shock_stat == SHOCK_SEVERE)
 			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
 			// If we cut our message short, abruptly end it with a-..
 			var/message_len = length_char(message)
@@ -245,7 +243,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 			deaf_type = 2
 
 		// Create map text prior to modifying message for goonchat, sign lang edition
-		if (client?.prefs.chat_on_map && !(stat == UNCONSCIOUS || stat == HARD_CRIT || is_blind(src)) && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		if (client?.prefs.chat_on_map && !(stat == UNCONSCIOUS || is_blind(src)) && (client.prefs.see_chat_non_mob || ismob(speaker)))
 			create_chat_message(speaker, message_language, raw_message, spans)
 
 		if(is_blind(src))
@@ -266,7 +264,7 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
 	// Create map text prior to modifying message for goonchat
-	if (client?.prefs.chat_on_map && !(stat == UNCONSCIOUS || stat == HARD_CRIT) && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
+	if (client?.prefs.chat_on_map && !(stat == UNCONSCIOUS) && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
 		create_chat_message(speaker, message_language, raw_message, spans)
 
 	// Recompose message for AI hrefs, language incomprehension.

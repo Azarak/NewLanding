@@ -643,17 +643,16 @@
 		if(isliving(M))
 			var/mob/living/L = M
 			var/status
-			switch (M.stat)
-				if(CONSCIOUS)
-					status = "Alive"
-				if(SOFT_CRIT)
-					status = "<font color='orange'><b>Dying</b></font>"
-				if(UNCONSCIOUS)
-					status = "<font color='orange'><b>Unconscious</b></font>"
-				if(HARD_CRIT)
-					status = "<font color='orange'><b>Unconscious and Dying</b></font>"
-				if(DEAD)
-					status = "<font color='red'><b>Dead</b></font>"
+			if(L.shock_stat != SHOCK_NONE)
+				status = "<font color='orange'><b>Unconscious and Dying</b></font>"
+			else
+				switch (M.stat)
+					if(CONSCIOUS)
+						status = "Alive"
+					if(UNCONSCIOUS)
+						status = "<font color='orange'><b>Unconscious</b></font>"
+					if(DEAD)
+						status = "<font color='red'><b>Dead</b></font>"
 			health_description = "Status = [status]"
 			health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getOrganLoss(ORGAN_SLOT_BRAIN)] - Stamina: [L.getStaminaLoss()]"
 		else

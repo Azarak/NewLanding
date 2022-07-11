@@ -277,7 +277,7 @@
 	if(!affecting)
 		affecting = get_bodypart(BODY_ZONE_CHEST)
 	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(damage, user.melee_damage_type, affecting, armor, wound_bonus = user.wound_bonus, bare_wound_bonus = user.bare_wound_bonus, sharpness = user.sharpness)
+	apply_damage(damage, user.melee_damage_type, affecting, armor, wound_bonus = user.wound_bonus, bare_wound_bonus = user.bare_wound_bonus, sharpness = user.sharpness, pain_multiplier = user.pain_multiplier)
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(TRAIT_BOMBIMMUNE in dna.species.species_traits)
@@ -696,6 +696,9 @@
 				bleed_text += " and [bleeding_limbs[num_bleeds].name]"
 		bleed_text += "!</span>"
 		combined_msg += bleed_text
+
+	if(pain > PAIN_MESSAGE_THRESHOLD)
+		combined_msg += get_pain_string()
 
 	if(getStaminaLoss())
 		if(getStaminaLoss() > 30)

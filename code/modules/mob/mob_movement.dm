@@ -530,6 +530,7 @@
 		if(feedback)
 			to_chat(src, SPAN_WARNING("You couldn't move there!"))
 		return FALSE
+	forceMove(target)
 	return TRUE
 
 /// Can this mob move between z levels

@@ -394,7 +394,7 @@
 /datum/mutation/human/martyrdom/proc/bloody_shower(datum/source, new_stat)
 	SIGNAL_HANDLER
 
-	if(new_stat != HARD_CRIT)
+	if(owner.shock_stat == SHOCK_NONE)
 		return
 	var/list/organs = owner.getorganszone(BODY_ZONE_HEAD, 1)
 

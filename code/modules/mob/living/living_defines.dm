@@ -23,6 +23,10 @@
 	var/fireloss = 0 ///Burn damage caused by being way too hot, too cold or burnt.
 	var/cloneloss = 0 ///Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/staminaloss = 0 ///Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
+	var/pain = 0
+	var/fatigue = 0
+	var/next_pain_groan = 0
+	var/next_pain_message = 0
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT /// when the mob goes from "normal" to crit
 	///When the mob enters hard critical state and is fully incapacitated.
 	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT

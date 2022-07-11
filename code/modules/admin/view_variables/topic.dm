@@ -118,6 +118,9 @@
 				if("stamina")
 					L.adjustStaminaLoss(amount)
 					newamt = L.getStaminaLoss()
+				if("pain")
+					L.adjustPainLoss(amount)
+					newamt = L.pain //Getter doesnt exist cause no reason to
 				else
 					to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]", confidential = TRUE)
 					return

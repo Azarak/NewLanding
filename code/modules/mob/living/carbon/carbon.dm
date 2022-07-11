@@ -153,6 +153,11 @@
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
 
+	/// We are throwing an item with force, see if we have stamina for that
+	if(I && I.force && !use_stamina(STAMINA_THROW_COST))
+		to_chat(src, SPAN_WARNING("You are too tired to toss!"))
+		return
+
 	if(!I)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
 			var/mob/living/throwable_mob = pulling
@@ -168,6 +173,10 @@
 	if(thrown_thing)
 
 		if(isliving(thrown_thing))
+			/// We are throwing a living mob, see if we have the stamina for it.
+			if(!use_stamina(STAMINA_THROW_COST))
+				to_chat(src, SPAN_WARNING("You are too tired to toss!"))
+				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			if(start_T && end_T)
@@ -495,36 +504,22 @@
 		return
 	var/total_burn = 0
 	var/total_brute = 0
-	var/total_stamina = 0
 	for(var/X in bodyparts) //hardcoded to streamline things a bit
 		var/obj/item/bodypart/BP = X
 		total_brute += (BP.brute_dam * BP.body_damage_coeff)
 		total_burn += (BP.burn_dam * BP.body_damage_coeff)
-		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
 	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
-	staminaloss = round(total_stamina, DAMAGE_PRECISION)
+	update_shock()
 	update_stat()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk(BURN)
 
 	med_hud_set_health()
 
-	if(stat == SOFT_CRIT)
+	if(shock_stat != SHOCK_NONE)
 		add_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
-
-/mob/living/carbon/update_stamina()
-	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat)
-		enter_stamcrit()
-	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
-		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
-		REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
-	else
-		return
-	update_health_hud()
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -645,7 +640,7 @@
 				severity = 9
 			if(-INFINITY to -95)
 				severity = 10
-		if(stat != HARD_CRIT)
+		if(shock_stat == SHOCK_NONE)
 			var/visionseverity = 4
 			switch(health)
 				if(-8 to -4)
@@ -711,25 +706,26 @@
 	else
 		clear_fullscreen("brute")
 
-/mob/living/carbon/update_health_hud(shown_health_amount)
+/mob/living/carbon/update_health_hud()
 	if(!client || !hud_used)
 		return
 	if(hud_used.healths)
 		if(stat != DEAD)
 			. = 1
-			if(shown_health_amount == null)
-				shown_health_amount = health
-			if(shown_health_amount >= maxHealth)
+			var/comparison_max = 220
+			var/oxy_deduction = getOxyLoss() * 2 //Bandaid until oxygen loss is represented better
+			var/comparison_amt = comparison_max - pain - oxy_deduction
+			if(comparison_amt >= comparison_max)
 				hud_used.healths.icon_state = "health0"
-			else if(shown_health_amount > maxHealth*0.8)
+			else if(comparison_amt > comparison_max*0.8)
 				hud_used.healths.icon_state = "health1"
-			else if(shown_health_amount > maxHealth*0.6)
+			else if(comparison_amt > comparison_max*0.6)
 				hud_used.healths.icon_state = "health2"
-			else if(shown_health_amount > maxHealth*0.4)
+			else if(comparison_amt > comparison_max*0.4)
 				hud_used.healths.icon_state = "health3"
-			else if(shown_health_amount > maxHealth*0.2)
+			else if(comparison_amt > comparison_max*0.2)
 				hud_used.healths.icon_state = "health4"
-			else if(shown_health_amount > 0)
+			else if(comparison_amt > 0)
 				hud_used.healths.icon_state = "health5"
 			else
 				hud_used.healths.icon_state = "health6"
@@ -744,22 +740,6 @@
 	if(hud_used?.spacesuit)
 		hud_used.spacesuit.icon_state = "spacesuit_[cell_state]"
 
-
-/mob/living/carbon/set_health(new_value)
-	. = ..()
-	if(. > hardcrit_threshold)
-		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
-			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
-	else if(health > hardcrit_threshold)
-		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
-	if(CONFIG_GET(flag/near_death_experience))
-		if(. > HEALTH_THRESHOLD_NEARDEATH)
-			if(health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
-				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
-		else if(health > HEALTH_THRESHOLD_NEARDEATH)
-			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
-
-
 /mob/living/carbon/update_stat()
 	if(status_flags & GODMODE)
 		return
@@ -767,12 +747,8 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
 			return
-		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
-			set_stat(HARD_CRIT)
 		else if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
-		else if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-			set_stat(SOFT_CRIT)
 		else
 			set_stat(CONSCIOUS)
 	update_damage_hud()
@@ -1256,3 +1232,8 @@
 /mob/living/carbon/proc/attach_rot(mapload)
 	SIGNAL_HANDLER
 	AddComponent(/datum/component/rot, 6 MINUTES, 10 MINUTES, 1)
+
+/mob/living/carbon/proc/update_deathly_grab_weakness()
+	// Special interaction can add an immobilization while being grabbed, its important to remove this when the conditions are no longer true
+	if(shock_stat == SHOCK_NONE && pain_stat == PAIN_STAT_NONE)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)

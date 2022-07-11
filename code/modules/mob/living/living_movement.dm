@@ -55,7 +55,11 @@
 	return can_zTravel(target, dir) && (movement_type & FLYING | FLOATING)
 
 /mob/living/keybind_face_direction(direction)
-	if(stat > SOFT_CRIT)
+	if(stat > CONSCIOUS)
+		return
+	if(shock_stat > SHOCK_NONE)
+		return
+	if(pain_stat > PAIN_STAT_NONE)
 		return
 	return ..()
 

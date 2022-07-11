@@ -35,9 +35,6 @@
 		if(CONSCIOUS) //bad
 			thou_shall_heal = death_is_coming/50
 			M.adjustOxyLoss(2 * REM * delta_time, TRUE)
-		if(SOFT_CRIT) //meh convert
-			thou_shall_heal = round(death_is_coming/47,0.1)
-			M.adjustOxyLoss(1 * REM * delta_time, TRUE)
 		else //no convert
 			thou_shall_heal = round(death_is_coming/45, 0.1)
 	M.adjustBruteLoss(-thou_shall_heal * REM * delta_time, FALSE)

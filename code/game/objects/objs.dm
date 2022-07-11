@@ -37,6 +37,8 @@
 	/// Map tag for something.  Tired of it being used on snowflake items.  Moved here for some semblance of a standard.
 	/// Next pr after the network fix will have me refactor door interactions, so help me god.
 	var/id_tag = null
+	/// Multiplier of pain inflicted from damage from this object.
+	var/pain_multiplier = BLUNT_WEAPON_PAIN_MULTIPLIER
 
 /obj/vv_edit_var(vname, vval)
 	if(vname == NAMEOF(src, obj_flags))

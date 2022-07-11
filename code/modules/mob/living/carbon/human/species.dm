@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	///Type of damage attack does. Ethereals attack with burn damage for example.
 	var/attack_type = BRUTE
 	///Lowest possible punch damage this species can give. If this is set to 0, punches will always miss.
-	var/punchdamagelow = 1
+	var/punchdamagelow = 4
 	///Highest possible punch damage this species can give.
-	var/punchdamagehigh = 10
+	var/punchdamagehigh = 9
 	///Damage at which punches from this race will stun
 	var/punchstunthreshold = 10 //yes it should be to the attacked race but it's not useful that way even if it's logical
 	///Base electrocution coefficient.  Basically a multiplier for damage from electrocutions.
@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
  * * replace_current - boolean, forces all old organs to get deleted whether or not they pass the species' ability to keep that organ
  * * excluded_zones - list, add zone defines to block organs inside of the zones from getting handled. see headless mutation for an example
  */
-/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current=TRUE, list/excluded_zones, datum/preferences/pref_load)	
+/datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current=TRUE, list/excluded_zones, datum/preferences/pref_load)
 	/// If we're switching species, and switching to a different specie, clear the organ dna.
 	if(old_species && old_species.type != type)
 		C.dna.organ_dna = list()
@@ -403,7 +403,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		var/used_neworgan = FALSE
 		var/should_have
 		if(neworgan)
-			should_have = neworgan.get_availability(src) 
+			should_have = neworgan.get_availability(src)
 		else
 			should_have = TRUE
 
@@ -970,6 +970,9 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, SPAN_WARNING("You don't want to harm [target]!"))
 		return FALSE
+	if(!user.use_stamina(STAMINA_ATTACK_COST))
+		to_chat(user, SPAN_WARNING("You are too tired to make a swing!"))
+		return FALSE
 	if(target.check_block())
 		target.visible_message(SPAN_WARNING("[target] blocks [user]'s attack!"), \
 						SPAN_USERDANGER("You block [user]'s attack!"), SPAN_HEAR("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
@@ -995,14 +998,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 
-		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
-		if(user.dna.species.punchdamagelow)
-			if(atk_effect == ATTACK_EFFECT_KICK || HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER)) //kicks never miss (provided your species deals more than 0 damage)
-				miss_chance = 0
-			else
-				miss_chance = min((user.dna.species.punchdamagehigh/user.dna.species.punchdamagelow) + user.getStaminaLoss() + (user.getBruteLoss()*0.5), 100) //old base chance for a miss + various damage. capped at 100 to prevent weirdness in prob()
-
-		if(!damage || !affecting || prob(miss_chance))//future-proofing for species that have 0 damage/weird cases where no zone is targeted
+		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
 			target.visible_message(SPAN_DANGER("[user]'s [atk_verb] misses [target]!"), \
 							SPAN_DANGER("You avoid [user]'s [atk_verb]!"), SPAN_HEAR("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
@@ -1026,12 +1022,11 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block)
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
+
+		target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block, pain_multiplier = FISTICUFFS_PAIN_MULTIPLIER)
 
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message(SPAN_DANGER("[user] knocks [target] down!"), \
@@ -1045,6 +1040,9 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	return
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(!user.use_stamina(STAMINA_SHOVE_COST))
+		to_chat(user, SPAN_WARNING("You are too tired to shove!"))
+		return
 	if(target.check_block())
 		target.visible_message(SPAN_WARNING("[user]'s shove is blocked by [target]!"), \
 						SPAN_DANGER("You block [user]'s shove!"), SPAN_HEAR("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, user)
@@ -1120,7 +1118,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 	H.send_item_attack_message(I, user, hit_area, affecting)
 
-	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness())
+	apply_damage(I.force * weakness, I.damtype, def_zone, armor_block, H, wound_bonus = Iwound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness(), pain_multiplier = I.pain_multiplier)
 
 	if(!I.force)
 		return FALSE //item force is zero
@@ -1180,7 +1178,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 	return TRUE
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE)
+/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = NONE, pain_multiplier = 0)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone, wound_bonus, bare_wound_bonus, sharpness) // make sure putting wound_bonus here doesn't screw up other signals or uses for this signal
 	var/hit_percent = (100-(blocked+armor))/100
 	hit_percent = (hit_percent * (100-H.physiology.damage_resistance))/100
@@ -1203,7 +1201,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			H.damageoverlaytemp = 20
 			var/damage_amount = forced ? damage : damage * hit_percent * brutemod * H.physiology.brute_mod
 			if(BP)
-				if(BP.receive_damage(damage_amount, 0, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
+				if(BP.receive_damage(damage_amount, 0, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness, pain_multiplier = pain_multiplier))
 					H.update_damage_overlays()
 			else//no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
@@ -1211,7 +1209,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			H.damageoverlaytemp = 20
 			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
 			if(BP)
-				if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
+				if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness, pain_multiplier = pain_multiplier))
 					H.update_damage_overlays()
 			else
 				H.adjustFireLoss(damage_amount)
@@ -1226,14 +1224,12 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.stamina_mod
-			if(BP)
-				if(BP.receive_damage(0, 0, damage_amount))
-					H.update_stamina()
-			else
-				H.adjustStaminaLoss(damage_amount)
+			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.brain_mod
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
+		if(PAIN)
+			H.adjustPainLoss(damage)
 	return 1
 
 /datum/species/proc/on_hit(obj/projectile/P, mob/living/carbon/human/H)
@@ -1809,7 +1805,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	var/perceived_bodytype = bodytype
 	if((item_slot == ITEM_SLOT_BELT || item_slot == ITEM_SLOT_FEET || item_slot == ITEM_SLOT_OCLOTHING || item_slot == ITEM_SLOT_ICLOTHING) && (DIGITIGRADE in species_traits))
 		perceived_bodytype = BODYTYPE_DIGITIGRADE
-	
+
 	if((item_slot == ITEM_SLOT_HEAD || item_slot == ITEM_SLOT_MASK))
 		var/obj/item/organ/snout/snout = human.getorganslot(ORGAN_SLOT_SNOUT)
 		if(snout && snout.use_muzzled_sprites)

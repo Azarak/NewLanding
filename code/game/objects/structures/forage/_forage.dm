@@ -34,6 +34,7 @@
 	var/foraged = FALSE
 
 /obj/structure/forage/update_icon_state()
+	. = ..()
 	if(foraged)
 		icon_state = foraged_icon_state
 	else

@@ -52,7 +52,7 @@
 	for(var/X in disabled)
 		var/obj/item/bodypart/BP = X
 		var/damage_text
-		if(!(BP.get_damage(include_stamina = FALSE) >= BP.max_damage)) //Stamina is disabling the limb
+		if(!(BP.get_damage() >= BP.max_damage)) //Stamina is disabling the limb
 			damage_text = "limp and lifeless"
 		else
 			damage_text = (BP.brute_dam >= BP.burn_dam) ? BP.heavy_brute_msg : BP.heavy_burn_msg
@@ -125,11 +125,10 @@
 	. += msg.Join("")
 
 	if(!appears_dead)
-		switch(stat)
-			if(SOFT_CRIT)
-				. += "[t_His] breathing is shallow and labored."
-			if(UNCONSCIOUS, HARD_CRIT)
-				. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
+		if(shock_stat != SHOCK_NONE)
+			. += "[t_His] breathing is shallow and labored."
+		else if(stat == UNCONSCIOUS)
+			. += "[t_He] [t_is]n't responding to anything around [t_him] and seems to be asleep."
 
 	var/trait_exam = common_trait_examine()
 	if (!isnull(trait_exam))

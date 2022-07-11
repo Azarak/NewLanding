@@ -167,9 +167,14 @@
 	if(item_flags & NOBLUDGEON)
 		return
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
-		return
+	if(force)
+		// Attacking costs stamina.
+		if(!user.use_stamina(STAMINA_ATTACK_COST))
+			to_chat(user, SPAN_WARNING("You are too tired to make a swing!"))
+			return
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
+			return
 
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
@@ -194,6 +199,10 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(item_flags & NOBLUDGEON)
+		return
+	// Attacking costs stamina.
+	if(force && !user.use_stamina(STAMINA_ATTACK_COST))
+		to_chat(user, SPAN_WARNING("You are too tired to make a swing!"))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(O)

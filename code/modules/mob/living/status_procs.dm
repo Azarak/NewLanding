@@ -187,7 +187,7 @@
 	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
 /mob/living/proc/AmountParalyzed() //How many deciseconds remain in our Paralyzed status effect
-	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed(FALSE)
+	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)
 		return P.duration - world.time
 	return 0
@@ -200,7 +200,7 @@
 	if(((status_flags & CANKNOCKDOWN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
 		if(absorb_stun(amount, ignore_canstun))
 			return
-		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed(FALSE)
+		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 		if(P)
 			P.duration = max(world.time + amount, P.duration)
 		else if(amount > 0)
@@ -213,7 +213,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(((status_flags & CANKNOCKDOWN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
-		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed(FALSE)
+		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 		if(amount <= 0)
 			if(P)
 				qdel(P)
@@ -234,7 +234,7 @@
 	if(((status_flags & CANKNOCKDOWN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
 		if(absorb_stun(amount, ignore_canstun))
 			return
-		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed(FALSE)
+		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 		if(P)
 			P.duration += amount
 		else if(amount > 0)

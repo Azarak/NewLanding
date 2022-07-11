@@ -40,7 +40,7 @@
 	/// Whether the levels of the station levels self loop
 	var/self_looping = FALSE
 	/// Amount of margin padding added to each side of the map. This is required to be atleast 2 for selflooping
-	var/map_margin = 5
+	var/map_margin = MAP_EDGE_PAD
 
 	var/list/banned_event_tags = list()
 	/// List of job listing types to initialize for this config

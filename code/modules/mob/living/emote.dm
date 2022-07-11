@@ -103,7 +103,7 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple =  "stops moving..."
 	cooldown = (15 SECONDS)
-	stat_allowed = HARD_CRIT
+	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional, override_message, override_emote_type)
 	var/mob/living/simple_animal/S = user
@@ -177,7 +177,7 @@
 	key_third_person = "gasps"
 	message = "gasps!"
 	emote_type = EMOTE_AUDIBLE
-	stat_allowed = HARD_CRIT
+	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/gasp/get_sound(mob/living/user)
 	if(iscarbon(user))
@@ -1074,6 +1074,36 @@
 		'sound/voice/hyena/laugh1.ogg',
 		'sound/voice/hyena/laugh2.ogg',
 	)
+
+/datum/emote/living/pain
+	key = "pain"
+	key_third_person = "cries out in pain!"
+	message = "cries out in pain!"
+	emote_type = EMOTE_AUDIBLE
+	vary = FALSE
+	sound_volume = 50
+
+/datum/emote/living/pain/get_sound(mob/living/user)
+	if(user.gender == MALE)
+		return pick(
+			'sound/voice/pain/human_male_pain_1.ogg',
+			'sound/voice/pain/human_male_pain_2.ogg',
+			'sound/voice/pain/human_male_pain_3.ogg',
+			'sound/voice/pain/human_male_pain_4.ogg',
+			'sound/voice/pain/human_male_pain_5.ogg',
+			'sound/voice/pain/human_male_pain_6.ogg',
+			'sound/voice/pain/human_male_pain_7.ogg',
+			'sound/voice/pain/human_male_pain_8.ogg',
+		)
+	else
+		return pick(
+			'sound/voice/pain/human_female_pain_1.ogg',
+			'sound/voice/pain/human_female_pain_2.ogg',
+			'sound/voice/pain/human_female_pain_3.ogg',
+			'sound/voice/pain/human_female_pain_4.ogg',
+			'sound/voice/pain/human_female_pain_5.ogg',
+			'sound/voice/pain/human_female_pain_6.ogg',
+		)
 
 /mob/living/proc/do_ass_slap_animation(atom/slapped)
 	do_attack_animation(slapped, no_effect=TRUE)

@@ -548,6 +548,12 @@
 	icon_state = "bg_revenant"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/atom/movable/screen/stamina
+	name = "stamina"
+	icon = 'icons/hud/screen_stamina.dmi'
+	icon_state = "stamina0"
+	screen_loc = ui_stamina
+
 /atom/movable/screen/healthdoll
 	name = "health doll"
 	screen_loc = ui_healthdoll
