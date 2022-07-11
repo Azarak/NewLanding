@@ -135,7 +135,6 @@ Used by the AI doomsday and the self-destruct nuke.
 		list/default_traits,
 		silent = FALSE,
 		weather_controller_type,
-		atmosphere_type,
 		day_night_controller_type,
 		rock_color,
 		plant_color,
@@ -255,13 +254,12 @@ Used by the AI doomsday and the self-destruct nuke.
 	var/picked_grass_color = CHECK_AND_PICK_OR_NULL(config.grass_color)
 	var/picked_water_color = CHECK_AND_PICK_OR_NULL(config.water_color)
 	LoadGroup(FailedZs,
-			"Station",
+			config.map_name,
 			config.map_path,
 			config.map_file,
 			config.traits,
 			ZTRAITS_STATION,
 			weather_controller_type = config.weather_controller_type,
-			atmosphere_type = config.atmosphere_type,
 			day_night_controller_type = config.day_night_controller_type,
 			rock_color = picked_rock_color,
 			plant_color = picked_plant_color,

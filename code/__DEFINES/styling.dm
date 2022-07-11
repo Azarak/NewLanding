@@ -1,0 +1,2 @@
+#define TWOTONE_ROW_ONE "#30241c"
+#define TWOTONE_ROW_TWO "#1c1917"

@@ -160,7 +160,7 @@
 	var/background_cl
 	for(var/sheet_type in GLOB.attribute_sheets)
 		even = !even
-		background_cl = even ? "#17191C" : "#23273C"
+		background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		var/datum/attribute_sheet/sheet = GLOB.attribute_sheets[sheet_type]
 		dat += "<tr style='background-color: [background_cl]'>"
 		dat += "<td>[sheet.name]</td>" //Name

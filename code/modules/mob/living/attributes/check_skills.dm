@@ -21,7 +21,7 @@
 		for(var/buff_id in attributes.buffs)
 			var/datum/attribute_buff/buff = attributes.buffs[buff_id]
 			even = !even
-			background_cl = even ? "#17191C" : "#23273C"
+			background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 
 			dat += "<tr style='background-color: [background_cl]'>"
 			dat += "<td>[buff.name]</td>" //Name
@@ -51,7 +51,7 @@
 
 	for(var/attribute_type in GLOB.attributes)
 		even = !even
-		background_cl = even ? "#17191C" : "#23273C"
+		background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		var/datum/attribute/attribute = GLOB.attributes[attribute_type]
 		var/amount = attributes.attributes_final[attribute_type]
 		var/raw = attributes.attributes_raw[attribute_type]
@@ -81,7 +81,7 @@
 	dat += "</tr>"
 	for(var/skill_type in GLOB.skills)
 		even = !even
-		background_cl = even ? "#17191C" : "#23273C"
+		background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		var/datum/skill/skill = GLOB.skills[skill_type]
 		var/value = attributes.skills_final[skill_type]
 		dat += "<tr style='background-color: [background_cl]'>"

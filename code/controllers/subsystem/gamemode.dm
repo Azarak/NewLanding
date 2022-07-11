@@ -829,7 +829,7 @@ SUBSYSTEM_DEF(gamemode)
 			dat += "</tr>"
 			for(var/track in event_tracks)
 				even = !even
-				var/background_cl = even ? "#17191C" : "#23273C"
+				var/background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 				var/lower = event_track_points[track]
 				var/upper = point_thresholds[track]
 				var/percent = round((lower/upper)*100)
@@ -863,7 +863,7 @@ SUBSYSTEM_DEF(gamemode)
 			even = TRUE
 			for(var/datum/scheduled_event/scheduled as anything in sorted_scheduled)
 				even = !even
-				var/background_cl = even ? "#17191C" : "#23273C"
+				var/background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 				dat += "<tr style='vertical-align:top; background-color: [background_cl];'>"
 				dat += "<td>[scheduled.event.name]</td>" //Name
 				dat += "<td>[scheduled.event.track]</td>" //Severity
@@ -882,7 +882,7 @@ SUBSYSTEM_DEF(gamemode)
 			even = TRUE
 			for(var/datum/round_event/event as anything in running)
 				even = !even
-				var/background_cl = even ? "#17191C" : "#23273C"
+				var/background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 				dat += "<tr style='vertical-align:top; background-color: [background_cl];'>"
 				dat += "<td>[event.control.name]</td>" //Name
 				dat += "<td>-TBA-</td>" //Actions
@@ -951,7 +951,7 @@ SUBSYSTEM_DEF(gamemode)
 	sortTim(assoc_spawn_weight, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
 	for(var/datum/round_event_control/event as anything in assoc_spawn_weight)
 		even = !even
-		var/background_cl = even ? "#17191C" : "#23273C"
+		var/background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		dat += "<tr style='vertical-align:top; background-color: [background_cl];'>"
 		dat += "<td>[event.name]</td>" //Name
 		dat += "<td>" //Tags

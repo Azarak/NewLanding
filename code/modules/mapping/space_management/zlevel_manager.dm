@@ -11,14 +11,16 @@
 		if (default_map_traits.len > world.maxz)
 			default_map_traits.Cut(world.maxz + 1)
 
-	for (var/I in 1 to default_map_traits.len)
-		var/list/features = default_map_traits[I]
-		var/name = features[DL_NAME]
-		var/list/traits = features[DL_TRAITS]
-		var/datum/space_level/S = new(I, name)
-		z_list += S
-		var/datum/map_zone/mapzone = new(name)
-		new /datum/virtual_level(name, traits, mapzone, 1, 1, world.maxx, world.maxy, I)
+	// Load the "Start" zones
+	LoadGroup(
+		null,
+		"Start",
+		"map_files/generic",
+		"start.dmm",
+		default_map_traits,
+		default_map_traits,
+		silent = TRUE,
+	)
 
 /// Adds new physical space level. DO NOT USE THIS TO LOAD SOMETHING NEW. SSmapping.get_free_allocation() will create any levels nessecary and pass you coordinates to create a new virtual level
 /datum/controller/subsystem/mapping/proc/add_new_zlevel(name, allocation_type)

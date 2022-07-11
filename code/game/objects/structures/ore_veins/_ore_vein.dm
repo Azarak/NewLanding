@@ -2,7 +2,7 @@
 	abstract_type = /obj/structure/ore_vein
 	name = "ore vein"
 	desc = "A large rock with chunks of ore."
-	icon = 'icons/obj/structures/ore_vein_gags.dmi'
+	icon = 'icons/obj/structures/ore_vein_small_gags.dmi'
 	icon_state = "ore_vein"
 	density = TRUE
 	anchored = TRUE
@@ -105,8 +105,10 @@
 /// Large, opaque and more rich veins
 /obj/structure/ore_vein/large
 	name = "large ore vein"
+	icon = 'icons/obj/structures/ore_vein_gags.dmi'
 	abstract_type = /obj/structure/ore_vein/large
 	greyscale_config = /datum/greyscale_config/ore_vein_large
+	pixel_x = -16
 	opacity = TRUE
 	ores_low = 30
 	ores_high = 45

@@ -14,3 +14,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
+
+/turf/open/water/impassable
+	name = "deep water"
+	desc = "Deep water."
+	density = TRUE

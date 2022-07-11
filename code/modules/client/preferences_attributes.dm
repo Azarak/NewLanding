@@ -146,7 +146,7 @@
 	var/background_cl
 	for(var/attribute_type in GLOB.attributes)
 		even = !even
-		background_cl = even ? "#17191C" : "#23273C"
+		background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		var/datum/attribute/attribute = GLOB.attributes[attribute_type]
 		var/add_link = can_modify_attribute(attribute_type, 1) ? "href='?_src_=prefs;task=attributes;attribute_task=set_attribute;type=[attribute_type];amount=1'" : "class='linkOff'"
 		var/sub_link = can_modify_attribute(attribute_type, -1) ? "href='?_src_=prefs;task=attributes;attribute_task=set_attribute;type=[attribute_type];amount=-1'" : "class='linkOff'"
@@ -177,7 +177,7 @@
 	even = FALSE
 	for(var/skill_type in GLOB.skills)
 		even = !even
-		background_cl = even ? "#17191C" : "#23273C"
+		background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		var/datum/skill/skill = GLOB.skills[skill_type]
 		var/base_value = skills[skill_type] + SKILL_BASE
 		var/perceived_value = perceived_skills[skill_type]

@@ -24,8 +24,6 @@
 	var/weather_controller_type = /datum/weather_controller
 	/// Type of our day and night controller, can be left blank for none
 	var/day_night_controller_type
-	/// Type of the atmosphere that will be loaded on station
-	var/atmosphere_type
 	/// Possible rock colors of the loaded map
 	var/list/rock_color
 	/// Possible plant colors of the loaded map
@@ -58,7 +56,7 @@
 					level_traits[trait_to_validate] = base_traits_station[trait_to_validate]
 
 /datum/map_config/proc/get_map_info()
-	return "You're on board <b>[map_name]</b>, a top of the class NanoTrasen research station."
+	return "You're on <b>[map_name]</b>, an island in early stages of colonisation, filled with treacherous pirates, dangerous natives and glimmering treasures."
 
 /proc/load_map_config(filename = "data/next_map.json", default_to_box, delete_after, error_if_missing = TRUE)
 	var/datum/map_config/config

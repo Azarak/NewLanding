@@ -8,6 +8,9 @@
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
 
+/area/unassigned
+	name = "unassigned area"
+
 /area/start
 	name = "start area"
 	icon_state = "start"

@@ -137,6 +137,7 @@
 #include "code\__DEFINES\storage.dm"
 #include "code\__DEFINES\storyteller.dm"
 #include "code\__DEFINES\strippable.dm"
+#include "code\__DEFINES\styling.dm"
 #include "code\__DEFINES\subsystems.dm"
 #include "code\__DEFINES\text.dm"
 #include "code\__DEFINES\tgs.config.dm"

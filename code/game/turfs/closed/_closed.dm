@@ -28,7 +28,7 @@
 	return src
 
 /turf/closed/indestructible/splashscreen
-	name = "Space Station 13"
+	name = "Accursed"
 	icon = 'icons/blank_title.png'
 	icon_state = ""
 	plane = SPLASHSCREEN_PLANE

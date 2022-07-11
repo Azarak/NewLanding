@@ -118,7 +118,7 @@
 
 	var/even = FALSE
 	for(var/item_path in loadout_items_in_page)
-		var/background_cl = even ? "#17191C" : "#23273C"
+		var/background_cl = even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE
 		even = !even
 		var/datum/loadout_item/loadout_item = GLOB.loadout_items[item_path]
 		var/datum/loadout_entry/loadout_entry = get_loadout_entry(item_path, current_slot)

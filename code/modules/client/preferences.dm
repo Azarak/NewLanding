@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							cult_desc = cult.description
 						else
 							cult_desc = "[copytext(cult.description, 1, 160)]..."
-						dat += "<tr style='background-color:[even ? "#13171C" : "#19232C"]'>"
+						dat += "<tr style='background-color:[even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE]'>"
 						dat += "<td valign='top'><b>[prefix]:</b> <a href='?_src_=prefs;preference=cultural_info_change;info=[cultural_thing];task=input'>[cult.name]</a><font color='#AAAAAA' size=1><b>[cult.get_extra_desc(more)]</b></font></td>"
 						dat += "<td><i>[cult_desc]</i></td>"
 						dat += "<td valign='top'><a href='?_src_=prefs;preference=cultural_info_toggle;info=[cultural_thing];task=input'>[more ? "Show Less" : "Show More"]</a></td>"
@@ -728,15 +728,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 									if(chosen_item.cost != 0)
 										font_color = chosen_item.cost > 0 ? "#AAFFAA" : "#FFAAAA"
 									print_name = "<font color='[font_color]'>[print_name]</font>"
-								dat += "<table align='center'; width='100%'; height='100px'; style='background-color:#13171C'>"
-								dat += "<tr style='vertical-align:top'><td width='100%' style='background-color:#23273C'><a [link]>[slot_name]</a>: [print_name]</td></tr>"
+								dat += "<table align='center'; width='100%'; height='100px'; style='background-color:[TWOTONE_ROW_TWO]'>"
+								dat += "<tr style='vertical-align:top'><td width='100%' style='background-color:[TWOTONE_ROW_ONE]'><a [link]>[slot_name]</a>: [print_name]</td></tr>"
 								if(category_name == AUGMENT_CATEGORY_LIMBS && chosen_item)
 									var/datum/augment_item/limb/chosen_limb = chosen_item
 									var/print_style = "<font color='#999999'>None</font>"
 									if(augment_limb_styles[slot_name])
 										print_style = augment_limb_styles[slot_name]
 									if(chosen_limb.uses_robotic_styles)
-										dat += "<tr style='vertical-align:top'><td width='100%' style='background-color:#16274C'><a href='?_src_=prefs;task=augment_style;slot=[slot_name]'>Style</a>: [print_style]</td></tr>"
+										dat += "<tr style='vertical-align:top'><td width='100%' style='background-color:[TWOTONE_ROW_ONE]'><a href='?_src_=prefs;task=augment_style;slot=[slot_name]'>Style</a>: [print_style]</td></tr>"
 								dat += "<tr style='vertical-align:top'><td width='100%' height='100%'>[chosen_item ? "<i>[chosen_item.description]</i>" : ""]</td></tr>"
 								dat += "</table>"
 							dat += "</td>"
@@ -744,9 +744,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(chosen_augment_slot)
 							var/list/augment_list = GLOB.augment_slot_to_items[chosen_augment_slot]
 							if(augment_list)
-								dat += "<table width=100%; style='background-color:#13171C'>"
+								dat += "<table width=100%; style='background-color:[TWOTONE_ROW_TWO]'>"
 								dat += "<center><h2>[chosen_augment_slot]</h2></center>"
-								dat += "<tr style='vertical-align:top;background-color:#23273C'>"
+								dat += "<tr style='vertical-align:top;background-color:[TWOTONE_ROW_ONE]'>"
 								dat += "<td width=33%><b>Name</b></td>"
 								dat += "<td width=7%><b>Cost</b></td>"
 								dat += "<td width=60%><b>Description</b></td>"
@@ -765,7 +765,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 										name_print = "[name_print] (Remove)"
 									else if(CanBuyAugment(aug_datum, current))
 										aug_link = "href='?_src_=prefs;task=set_augment;type=[type_thing]'"
-									dat += "<tr style='background-color:[even ? "#13171C" : "#19232C"]'>"
+									dat += "<tr style='background-color:[even ? TWOTONE_ROW_TWO : TWOTONE_ROW_ONE]'>"
 									dat += "<td><b><a [aug_link]>[name_print]</a></b></td>"
 									dat += "<td><center>[aug_datum.cost]</center></td>"
 									dat += "<td><i>[aug_datum.description]</i></td>"
@@ -2656,9 +2656,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/language/lang_datum = lang_path
 		var/required = (req_langs[lang_path] ? TRUE : FALSE)
 		if(even)
-			background_cl = (required ? "#7A5A00" : "#17191C")
+			background_cl = (required ? "#7A5A00" : TWOTONE_ROW_TWO)
 		else
-			background_cl = (required ? "#856200" : "#23273C")
+			background_cl = (required ? "#856200" : TWOTONE_ROW_ONE)
 		var/language_skill = 0
 		if(languages[lang_path])
 			language_skill = languages[lang_path]

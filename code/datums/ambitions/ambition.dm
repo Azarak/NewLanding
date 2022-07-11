@@ -99,7 +99,7 @@
 		for(var/objectiv in objectives)
 			index++
 			even = !even
-			var/bg_color = "#23273C"
+			var/bg_color = TWOTONE_ROW_ONE
 			if(even)
 				bg_color = "#19222C"
 			dat += "<tr style='background-color:[bg_color]'><td><center> * [objectiv] <a href='?src=[REF(src)];pref=edit_objective;index=[index]'>Edit</a> <a href='?src=[REF(src)];pref=remove_objective;index=[index]'>Remove</a></center></td></tr>"
