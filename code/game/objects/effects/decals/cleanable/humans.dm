@@ -137,13 +137,14 @@
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload=FALSE)
 	set waitfor = FALSE
-	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions)
 	var/direction = pick(directions)
-	for(var/i in 0 to pick(0, 200; 1, 150; 2, 50; 3, 17; 50)) //the 3% chance of 50 steps is intentional and played for laughs.
+	var/step_amount = rand(0,2)
+	if(!step_amount)
+		return
+	for(var/i in 1 to step_amount)
 		if (!mapload)
 			sleep(2)
-		if(i > 0)
-			new /obj/effect/decal/cleanable/blood/splatter(loc)
+		new /obj/effect/decal/cleanable/blood/splatter(loc)
 		if(!step_to(src, get_step(src, direction), 0))
 			break
 

@@ -255,7 +255,7 @@ There are several things that need to be remembered:
 		if(client && hud_used?.hud_shown)
 			client.screen += s_store
 		update_observer_view(s_store)
-		overlays_standing[SUIT_STORE_LAYER] = s_store.build_worn_icon(default_layer = SUIT_STORE_LAYER, default_icon_file = 'icons/mob/clothing/belt_mirror.dmi', wearer = src, slot = ITEM_SLOT_SUITSTORE)
+		overlays_standing[SUIT_STORE_LAYER] = s_store.build_worn_icon(default_layer = SUIT_STORE_LAYER, default_icon_file = 'icons/mob/clothing/suitstore/suitstore.dmi', wearer = src, slot = ITEM_SLOT_SUITSTORE)
 		var/mutable_appearance/s_store_overlay = overlays_standing[SUIT_STORE_LAYER]
 		overlays_standing[SUIT_STORE_LAYER] = s_store_overlay
 	apply_overlay(SUIT_STORE_LAYER)
@@ -277,7 +277,7 @@ There are several things that need to be remembered:
 		if(client && hud_used?.hud_shown)
 			client.screen += belt
 		update_observer_view(belt)
-		overlays_standing[BELT_LAYER] = belt.build_worn_icon(default_layer = BELT_LAYER, default_icon_file = 'icons/mob/clothing/belt.dmi', wearer = src, slot = ITEM_SLOT_BELT)
+		overlays_standing[BELT_LAYER] = belt.build_worn_icon(default_layer = BELT_LAYER, default_icon_file = 'icons/mob/clothing/belt/belt.dmi', wearer = src, slot = ITEM_SLOT_BELT)
 		var/mutable_appearance/belt_overlay = overlays_standing[BELT_LAYER]
 		overlays_standing[BELT_LAYER] = belt_overlay
 

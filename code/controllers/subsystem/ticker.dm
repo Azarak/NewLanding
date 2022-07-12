@@ -257,7 +257,7 @@ SUBSYSTEM_DEF(ticker)
 	SSdbcore.SetRoundStart()
 
 	to_chat(world, SPAN_NOTICE("<B>Welcome to [station_name()], enjoy your stay!</B>"))
-	SEND_SOUND(world, 'sound/effects/cowboysting.ogg')
+	SEND_SOUND(world, sound('sound/effects/cowboysting.ogg', volume = 40))
 
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)

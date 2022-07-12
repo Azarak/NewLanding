@@ -37,7 +37,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	inhand_icon_state = "trashbag"
-	worn_icon = 'icons/mob/clothing/belt.dmi'
+	worn_icon = 'icons/mob/clothing/belt/belt.dmi'
 	worn_icon_state = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'

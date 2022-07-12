@@ -15,6 +15,7 @@
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
+	belt = /obj/item/cutlass
 
 /datum/job/crafstman
 	title = "Craftsman"
@@ -33,6 +34,7 @@
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
+	belt = /obj/item/cutlass
 
 /datum/job/deckguard
 	title = "Deckguard"
@@ -51,6 +53,7 @@
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
+	belt = /obj/item/cutlass
 
 /datum/job/pirate
 	title = "Pirate"
@@ -69,6 +72,7 @@
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
+	belt = /obj/item/cutlass
 
 /datum/job/shaman
 	title = "Shaman"
@@ -87,3 +91,4 @@
 	head = /obj/item/clothing/head/bandana
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
+	belt = /obj/item/cutlass

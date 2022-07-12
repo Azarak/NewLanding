@@ -40,3 +40,17 @@
 	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
 	spawn_text = "appears from"
+
+/obj/structure/mob_spawner/wall_hole/spider
+	mob_types = list(/mob/living/simple_animal/hostile/giant_spider)
+
+/obj/structure/mob_spawner/invisible/deer
+	max_mobs = 1
+	mob_types = list(/mob/living/simple_animal/deer)
+
+/obj/structure/mob_spawner/skeleton
+	name = "tomb"
+	icon_state = "tombstone"
+	density = FALSE
+	max_mobs = 1
+	mob_types = list(/mob/living/simple_animal/hostile/skeleton)

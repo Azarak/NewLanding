@@ -12,6 +12,10 @@
 "bf" = (
 /turf/open/water,
 /area/indoors/house)
+"bM" = (
+/obj/structure/mob_spawner/skeleton,
+/turf/open/floor/mud,
+/area/outdoors/caves)
 "cE" = (
 /turf/open/floor/wood,
 /area/outdoors/jungle)
@@ -43,6 +47,10 @@
 "hI" = (
 /turf/open/openspace,
 /area/indoors/house)
+"iF" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/mud,
+/area/outdoors/caves)
 "jo" = (
 /obj/item/key{
 	key_id = 100
@@ -114,6 +122,10 @@
 /obj/structure/cache/spider_cocoon,
 /turf/open/floor/rock,
 /area/outdoors/caves)
+"wQ" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/rock,
+/area/outdoors/caves)
 "xO" = (
 /obj/effect/landmark/start/native,
 /turf/open/floor/grass,
@@ -158,6 +170,11 @@
 "CO" = (
 /turf/open/floor/sand,
 /area/outdoors/caves)
+"CR" = (
+/obj/structure/obstruction/cobweb/normal,
+/obj/structure/mob_spawner/wall_hole/spider,
+/turf/open/floor/rock,
+/area/outdoors/caves)
 "Dq" = (
 /obj/structure/obstruction/rock/hole,
 /turf/open/floor/rock,
@@ -192,6 +209,10 @@
 /obj/structure/obstruction/dirt_mound/hole_rocky,
 /turf/open/openspace,
 /area/outdoors/jungle)
+"GR" = (
+/obj/structure/mob_spawner/invisible/deer,
+/turf/open/floor/grass,
+/area/outdoors/jungle)
 "GT" = (
 /obj/item/storage/pouch/opulent,
 /turf/open/floor/grass,
@@ -209,12 +230,19 @@
 /obj/effect/landmark/start/pirate,
 /turf/open/floor/sand,
 /area/outdoors/caves)
+"KL" = (
+/obj/structure/closet/crate/coffin,
+/turf/open/floor/mud,
+/area/outdoors/caves)
 "LJ" = (
 /turf/open/floor/cobblestone,
 /area/outdoors/jungle)
 "My" = (
 /obj/structure/obstruction/overgrowth/dense,
 /turf/open/floor/rock,
+/area/outdoors/caves)
+"Nq" = (
+/turf/open/floor/mud,
 /area/outdoors/caves)
 "NF" = (
 /obj/item/pickaxe,
@@ -224,6 +252,10 @@
 /obj/effect/landmark/start/fallback,
 /turf/open/floor/cobblestone,
 /area/outdoors/jungle)
+"Ph" = (
+/obj/structure/closet/crate/coffin,
+/turf/open/floor/rock,
+/area/outdoors/caves)
 "Qw" = (
 /obj/structure/cache/shipwreck,
 /turf/open/floor/sand,
@@ -273,7 +305,7 @@
 /turf/open/floor/wood,
 /area/indoors/house)
 "Ui" = (
-/obj/structure/obstruction/overgrowth/massive,
+/obj/structure/mob_spawner/wall_hole/spider,
 /turf/open/floor/rock,
 /area/outdoors/caves)
 "UF" = (
@@ -283,6 +315,10 @@
 /obj/structure/obstruction/branches,
 /turf/open/floor/grass,
 /area/outdoors/jungle)
+"UQ" = (
+/obj/structure/flora/rock,
+/turf/open/floor/rock,
+/area/outdoors/caves)
 "Vi" = (
 /turf/closed/wall/stone,
 /area/indoors/house)
@@ -16881,9 +16917,9 @@ aq
 aq
 aq
 aq
+Ui
+Gy
 wC
-Gy
-Gy
 aq
 aq
 aq
@@ -17697,7 +17733,7 @@ aq
 aq
 aq
 aq
-Wq
+CR
 Wq
 Wq
 aq
@@ -23631,7 +23667,7 @@ dw
 dw
 dw
 dw
-dw
+GR
 dw
 dw
 dw
@@ -25673,7 +25709,7 @@ dw
 dw
 dw
 dw
-dw
+GR
 dw
 dw
 dw
@@ -26064,7 +26100,7 @@ aq
 aq
 aq
 My
-Ui
+My
 zS
 RO
 dw
@@ -26166,7 +26202,7 @@ aq
 FM
 FM
 My
-Ui
+My
 zS
 RO
 dw
@@ -26268,7 +26304,7 @@ FM
 FM
 FM
 My
-Ui
+My
 zS
 RO
 dw
@@ -26364,7 +26400,7 @@ aq
 aq
 aq
 Gy
-Gy
+wQ
 Gy
 Gy
 FM
@@ -27073,7 +27109,7 @@ aq
 aq
 aq
 aq
-aq
+UQ
 Gy
 Gy
 aq
@@ -27175,7 +27211,7 @@ aq
 aq
 aq
 aq
-aq
+Gy
 Gy
 Gy
 aq
@@ -27277,7 +27313,7 @@ aq
 aq
 aq
 aq
-aq
+Gy
 Gy
 Gy
 aq
@@ -27378,11 +27414,11 @@ aq
 aq
 aq
 aq
-aq
-aq
+Ph
 Gy
 Gy
-aq
+Gy
+UQ
 aq
 aq
 aq
@@ -27480,11 +27516,11 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
+wQ
+Gy
+Gy
+Gy
+Gy
 aq
 aq
 aq
@@ -27582,11 +27618,11 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
+Nq
+Gy
+Gy
+Gy
+Gy
 aq
 aq
 aq
@@ -27635,8 +27671,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -27683,13 +27719,13 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
+bM
+Nq
+Gy
+Gy
+Gy
+wQ
+Gy
 aq
 aq
 aq
@@ -27737,8 +27773,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -27784,15 +27820,15 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
+Cy
+Nq
+Nq
+Nq
+Gy
+Gy
+Gy
+Gy
+Nq
 aq
 aq
 aq
@@ -27839,8 +27875,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -27887,14 +27923,14 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
+Nq
+Nq
+Nq
+Nq
+Gy
+Gy
+Nq
+Nq
 aq
 aq
 aq
@@ -27941,8 +27977,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -27989,14 +28025,14 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
-aq
+iF
+Nq
+Nq
+Nq
+Nq
+Nq
+Nq
+KL
 aq
 aq
 aq
@@ -28043,8 +28079,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -28092,12 +28128,12 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
-aq
-aq
+Nq
+Nq
+bM
+Nq
+Nq
+Nq
 aq
 aq
 aq
@@ -28145,8 +28181,8 @@ aq
 aq
 aq
 tj
-Sn
-Sn
+qB
+qB
 qB
 qB
 qB
@@ -28195,10 +28231,10 @@ aq
 aq
 aq
 aq
-aq
-aq
-aq
-aq
+iF
+Nq
+Nq
+Nq
 aq
 aq
 aq
