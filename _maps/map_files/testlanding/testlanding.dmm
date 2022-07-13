@@ -73,6 +73,11 @@
 /obj/structure/slope/stone/directional/south,
 /turf/open/floor/rock,
 /area/outdoors/caves)
+"mV" = (
+/obj/item/gun/flintlock/pistol,
+/obj/structure/table/wood,
+/turf/open/floor/grass,
+/area/outdoors/jungle)
 "ow" = (
 /obj/structure/obstruction/rock/large,
 /turf/open/floor/grass,
@@ -226,6 +231,11 @@
 /obj/structure/cliff_side/side/south,
 /turf/open/floor/grass,
 /area/outdoors/jungle)
+"Jv" = (
+/obj/item/gun/flintlock/musket,
+/obj/structure/table/wood,
+/turf/open/floor/grass,
+/area/outdoors/jungle)
 "Kx" = (
 /obj/effect/landmark/start/pirate,
 /turf/open/floor/sand,
@@ -236,6 +246,11 @@
 /area/outdoors/caves)
 "LJ" = (
 /turf/open/floor/cobblestone,
+/area/outdoors/jungle)
+"Mv" = (
+/obj/structure/table/wood,
+/obj/item/storage/pouch/lead_balls,
+/turf/open/floor/grass,
 /area/outdoors/jungle)
 "My" = (
 /obj/structure/obstruction/overgrowth/dense,
@@ -331,6 +346,12 @@
 /area/outdoors/caves)
 "Wr" = (
 /obj/structure/forage/tea_herbs,
+/turf/open/floor/grass,
+/area/outdoors/jungle)
+"Xe" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/toggle/horn/gunpowder,
+/obj/item/ramrod,
 /turf/open/floor/grass,
 /area/outdoors/jungle)
 "YK" = (
@@ -24958,7 +24979,7 @@ hy
 hy
 hy
 hy
-dw
+mV
 LJ
 LJ
 LJ
@@ -25060,7 +25081,7 @@ Tr
 Tr
 Tr
 hy
-dw
+Jv
 dw
 LJ
 LJ
@@ -25162,7 +25183,7 @@ Tr
 Tr
 Tr
 hy
-dw
+Mv
 dw
 LJ
 LJ
@@ -25264,7 +25285,7 @@ Tr
 Tr
 Tr
 hy
-dw
+Xe
 dw
 LJ
 LJ

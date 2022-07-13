@@ -3,15 +3,13 @@
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /datum/component/lifesteal/Initialize(flat_heal=0)
-	if(!isitem(parent) && !ishostile(parent) && !isgun(parent))
+	if(!isitem(parent) && !ishostile(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.flat_heal = flat_heal
 
 /datum/component/lifesteal/RegisterWithParent()
-	if(isgun(parent))
-		RegisterSignal(parent, COMSIG_PROJECTILE_ON_HIT, .proc/projectile_hit)
-	else if(isitem(parent))
+	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/item_afterattack)
 	else if(ishostile(parent))
 		RegisterSignal(parent, COMSIG_HOSTILE_POST_ATTACKINGTARGET, .proc/hostile_attackingtarget)

@@ -23,27 +23,6 @@
 	ex_light = 3
 	ex_flame = 3
 
-/obj/item/grenade/frag
-	name = "frag grenade"
-	desc = "An anti-personnel fragmentation grenade, this weapon excels at killing soft targets by shredding them with metal shrapnel."
-	icon_state = "frag"
-	shrapnel_type = /obj/projectile/bullet/shrapnel
-	shrapnel_radius = 4
-	ex_heavy = 1
-	ex_light = 3
-	ex_flame = 4
-
-/obj/item/grenade/frag/mega
-	name = "FRAG grenade"
-	desc = "An anti-everything fragmentation grenade, this weapon excels at killing anything any everything by shredding them with metal shrapnel."
-	shrapnel_type = /obj/projectile/bullet/shrapnel/mega
-	shrapnel_radius = 12
-
-/obj/item/grenade/frag/detonate(mob/living/lanced_by)
-	. = ..()
-	update_mob()
-	qdel(src)
-
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also likely wet any nearby floors."
 	name = "gluon frag grenade"

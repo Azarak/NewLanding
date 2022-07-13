@@ -55,6 +55,14 @@
 	icon_state = "firing_effect"
 	duration = 2
 
+/obj/effect/temp_visual/dir_setting/firing_effect/Initialize(mapload, set_dir)
+	. = ..()
+	update_appearance()
+
+/obj/effect/temp_visual/dir_setting/firing_effect/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, icon_state)
+
 /obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
 	switch(newdir)
 		if(NORTH)

@@ -29,13 +29,6 @@
 	///how big of a flame explosion radius on prime
 	var/ex_flame = 0
 
-	// dealing with creating a [/datum/component/pellet_cloud] on detonate
-	/// if set, will spew out projectiles of this type
-	var/shrapnel_type
-	/// the higher this number, the more projectiles are created as shrapnel
-	var/shrapnel_radius
-	var/shrapnel_initialized
-
 /obj/item/grenade/suicide_act(mob/living/carbon/user)
 	user.visible_message(SPAN_SUICIDE("[user] primes [src], then eats it! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, 'sound/items/eatfood.ogg', 50, TRUE)
@@ -99,9 +92,6 @@
 		add_fingerprint(user)
 		if(msg)
 			to_chat(user, SPAN_WARNING("You prime [src]! [capitalize(DisplayTimeText(det_time))]!"))
-	if(shrapnel_type && shrapnel_radius)
-		shrapnel_initialized = TRUE
-		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, TRUE)
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
@@ -115,10 +105,6 @@
  * * lanced_by- If this grenade was detonated by an elance, we need to pass that along with the COMSIG_GRENADE_DETONATE signal for pellet clouds
  */
 /obj/item/grenade/proc/detonate(mob/living/lanced_by)
-	if(shrapnel_type && shrapnel_radius && !shrapnel_initialized) // add a second check for adding the component in case whatever triggered the grenade went straight to prime (badminnery for example)
-		shrapnel_initialized = TRUE
-		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
-
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
 		explosion(src, ex_dev, ex_heavy, ex_light, ex_flame)

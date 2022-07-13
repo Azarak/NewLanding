@@ -198,17 +198,8 @@
 		if(prob(10)) // Artificial miss
 			real_target = pick(oview(2, target))
 
-		var/obj/item/gun/gun = locate() in living_pawn.held_items
-		var/can_shoot = gun?.can_shoot() || FALSE
-		if(gun && controller.blackboard[BB_MONKEY_GUN_WORKED] && prob(95))
-			// We attempt to attack even if we can't shoot so we get the effects of pulling the trigger
-			gun.afterattack(real_target, living_pawn, FALSE)
-			controller.blackboard[BB_MONKEY_GUN_WORKED] = can_shoot ? TRUE : prob(80) // Only 20% likely to notice it didn't work
-			if(can_shoot)
-				controller.blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED] = TRUE
-		else
-			living_pawn.throw_item(real_target)
-			controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // 'worked'
+		living_pawn.throw_item(real_target)
+		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // 'worked'
 
 	// no de-aggro
 	if(controller.blackboard[BB_MONKEY_AGRESSIVE])

@@ -153,10 +153,6 @@ have ways of interacting with a specific mob and control it.
 	if(!locate(/obj/item) in living_pawn.held_items)
 		blackboard[BB_MONKEY_BEST_FORCE_FOUND] = 0
 
-	if(blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED] && (locate(/obj/item/gun) in living_pawn.held_items))
-		// We have a gun, what could we possibly want?
-		return FALSE
-
 	var/obj/item/weapon
 	var/list/nearby_items = list()
 	for(var/obj/item/item in oview(2, living_pawn))
@@ -185,7 +181,6 @@ have ways of interacting with a specific mob and control it.
 
 /// Returns either the best weapon from the given choices or null if held weapons are better
 /datum/ai_controller/monkey/proc/GetBestWeapon(list/choices, list/held_weapons)
-	var/gun_neurons_activated = blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED]
 	var/top_force = 0
 	var/obj/item/top_force_item
 	for(var/obj/item/item as anything in held_weapons)
@@ -193,10 +188,6 @@ have ways of interacting with a specific mob and control it.
 			continue
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
-		if(gun_neurons_activated && istype(item, /obj/item/gun))
-			// We have a gun, why bother looking for something inferior
-			// Also yes it is intentional that monkeys dont know how to pick the best gun
-			return item
 		if(item.force > top_force)
 			top_force = item.force
 			top_force_item = item
@@ -206,8 +197,6 @@ have ways of interacting with a specific mob and control it.
 			continue
 		if(HAS_TRAIT(item, TRAIT_NEEDS_TWO_HANDS) || blackboard[BB_MONKEY_BLACKLISTITEMS][item])
 			continue
-		if(gun_neurons_activated && istype(item, /obj/item/gun))
-			return item
 		if(item.force <= top_force)
 			continue
 		top_force_item = item

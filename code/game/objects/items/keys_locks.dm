@@ -95,7 +95,8 @@
 /obj/item/lock/Initialize(mapload, new_id)
 	. = ..()
 	//Apply our ID
-	key_id = new_id
+	if(!isnull(new_id))
+		key_id = new_id
 
 /obj/item/key_assembly
 	name = "key assembly"

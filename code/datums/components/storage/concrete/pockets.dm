@@ -59,9 +59,7 @@
 		/obj/item/scalpel, /obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver, /obj/item/weldingtool/mini,
-		/obj/item/firing_pin
-		)
-		)
+		))
 
 /datum/component/storage/concrete/pockets/shoes/clown/Initialize()
 	. = ..()
@@ -70,8 +68,7 @@
 		/obj/item/scalpel, /obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver, /obj/item/weldingtool/mini,
-		/obj/item/firing_pin)
-		)
+		))
 
 /datum/component/storage/concrete/pockets/pocketprotector
 	max_items = 3
