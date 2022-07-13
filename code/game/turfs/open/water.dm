@@ -19,3 +19,4 @@
 	name = "deep water"
 	desc = "Deep water."
 	density = TRUE
+	color = "#aed9f2"

@@ -221,8 +221,6 @@
 		real_name = new_name
 	if(randomise_flags & RANDOMIZE_AGE)
 		age = rand(AGE_MIN, AGE_MAX)
-	if(randomise_flags & RANDOMIZE_BACKPACK)
-		backpack = random_backpack()
 	if(randomise_flags & RANDOMIZE_JUMPSUIT_STYLE)
 		jumpsuit_style = pick(GLOB.jumpsuitlist)
 	if(randomise_flags & RANDOMIZE_SKIN_TONE)

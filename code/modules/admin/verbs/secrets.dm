@@ -299,9 +299,6 @@
 				to_chat(H, SPAN_BOLDANNOUNCE("You suddenly feel stupid."), confidential = TRUE)
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(holder)] made everybody brain damaged")
-		if("floorlava")
-			var/datum/weather_controller/weather = STATION_WEATHER_CONTROLLER
-			weather.RunWeather(/datum/weather/floor_is_lava)
 		if("massimmerse")
 			if(!is_funmin)
 				return

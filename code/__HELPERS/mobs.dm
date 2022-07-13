@@ -20,9 +20,6 @@
 		else
 			return "000"
 
-/proc/random_backpack()
-	return pick(GLOB.backpacklist)
-
 /proc/random_features() //Not random now, use the species specific ones for that. This is kept for compatibility
 	return MANDATORY_FEATURE_LIST
 

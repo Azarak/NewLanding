@@ -61,6 +61,7 @@
 	if(!can_climb(climbed_thing, user))
 		return
 	climbed_thing.add_fingerprint(user)
+	user.face_atom(climbed_thing)
 	var/climb_verb = climb_over ? "over" : "onto"
 	user.visible_message(SPAN_WARNING("[user] starts climbing [climb_verb] [climbed_thing]."), \
 								SPAN_NOTICE("You start climbing [climb_verb] [climbed_thing]..."))

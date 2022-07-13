@@ -299,7 +299,7 @@
 /obj/structure/closet/proc/after_weld(weld_state)
 	return
 
-/obj/structure/closet/mouse_dropped(atom/movable/O, mob/living/user)
+/obj/structure/closet/mouse_dropped(atom/movable/O, mob/living/user, params)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
 	if(!istype(user) || user.incapacitated() || user.body_position == LYING_DOWN)

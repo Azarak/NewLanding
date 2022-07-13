@@ -215,7 +215,6 @@
 /obj/item/kitchen/rollingpin/suicide_act(mob/living/carbon/user)
 	user.visible_message(SPAN_SUICIDE("[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
-/* Trays  moved to /obj/item/storage/bag */
 
 /obj/item/kitchen/spoon
 	name = "spoon"

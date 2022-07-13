@@ -1286,7 +1286,7 @@
 	..()
 	update_z(new_z)
 
-/mob/living/mouse_dropped(atom/dropping, atom/user)
+/mob/living/mouse_dropped(atom/dropping, atom/user, params)
 	var/mob/living/U = user
 	if(isliving(dropping))
 		var/mob/living/M = dropping

@@ -2,9 +2,9 @@
 	/// What possible weather types will be rolled naturally here, assoc list of type to weight. You'll still be able to call different weathers by events and such
 	var/list/possible_weathers
 	/// The lowest interval between one naturally occuring weather and another
-	var/wait_interval_low = 6.5 MINUTES
+	var/wait_interval_low = 18 MINUTES
 	/// The highest interval between one naturally occuring weather and another
-	var/wait_interval_high = 13.5 MINUTES
+	var/wait_interval_high = 35 MINUTES
 	/// What will be the next weather type rolled, rolled before initializing it for barometers
 	var/next_weather_type
 	/// When will the next weather will be rolled, also read by barometers
@@ -68,12 +68,11 @@
 		weather.telegraph()
 	return weather
 
-/datum/weather_controller/lavaland
-	possible_weathers = list(/datum/weather/ash_storm = 90,
-							/datum/weather/ash_storm/emberfall = 10)
-
-/datum/weather_controller/icebox
-		possible_weathers = list(/datum/weather/snow_storm = 50,
-							/datum/weather/snowfall = 20,
-							/datum/weather/snowfall/heavy = 20,
-							/datum/weather/hailstorm = 20)
+/datum/weather_controller/island
+	possible_weathers = list(
+		/datum/weather/rain = 100,
+		/datum/weather/rain/heavy = 100,
+		/datum/weather/rain/heavy/storm = 100,
+		/datum/weather/fog = 100,
+		/datum/weather/clouds = 100,
+		)

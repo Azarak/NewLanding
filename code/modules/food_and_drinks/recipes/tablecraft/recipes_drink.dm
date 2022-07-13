@@ -125,14 +125,3 @@
 				/obj/item/food/monkeycube = 1,
 				/obj/item/reagent_containers/food/drinks/bottle = 1)
 	category = CAT_DRINK
-
-/datum/crafting_recipe/pruno
-	name = "pruno mix"
-	result = /obj/item/reagent_containers/food/drinks/bottle/pruno
-	time = 30
-	reqs = list(/obj/item/storage/bag/trash = 1,
-	            /obj/item/food/breadslice/moldy = 1,
-	            /obj/item/food/grown = 4,
-	            /obj/item/food/candy_corn = 2,
-	            /datum/reagent/water = 15)
-	category = CAT_DRINK

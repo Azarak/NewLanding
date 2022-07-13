@@ -25,6 +25,7 @@
 		)
 
 	day_night_controller_type = /datum/day_night_controller
+	weather_controller_type = /datum/weather_controller/island
 
 	allow_custom_shuttles = TRUE
 

@@ -2,7 +2,7 @@
 	name = "lead balls"
 	icon = 'icons/obj/items/stack/lead_balls.dmi'
 	icon_state = "lead_balls"
-	abstract_type = /obj/item/stack/lead_ball
+	merge_type = /obj/item/stack/lead_ball
 	full_w_class = WEIGHT_CLASS_SMALL
 	max_amount = 5
 	singular_name = "lead ball"

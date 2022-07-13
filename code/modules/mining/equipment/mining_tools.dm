@@ -4,7 +4,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "pickaxe"
 	flags_1 = CONDUCT_1
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 15
 	throwforce = 10
 	inhand_icon_state = "pickaxe"
@@ -33,17 +33,6 @@
 	attack_verb_simple = list("ineffectively hit")
 	force = 1
 	throwforce = 1
-
-/obj/item/pickaxe/mini
-	name = "compact pickaxe"
-	desc = "A smaller, compact version of the standard pickaxe."
-	icon_state = "minipick"
-	worn_icon_state = "pickaxe"
-	force = 10
-	throwforce = 7
-	slot_flags = ITEM_SLOT_BELT
-	w_class = WEIGHT_CLASS_NORMAL
-	custom_materials = list(/datum/material/iron=1000)
 
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
@@ -95,18 +84,6 @@
 		return BRUTELOSS
 	user.visible_message(SPAN_SUICIDE("[user] couldn't do it!"))
 	return SHAME
-
-/obj/item/shovel/spade
-	name = "spade"
-	desc = "A small tool for digging and moving dirt."
-	icon_state = "spade"
-	inhand_icon_state = "spade"
-	worn_icon_state = "spade"
-	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	force = 5
-	throwforce = 7
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/shovel/serrated
 	name = "serrated bone shovel"

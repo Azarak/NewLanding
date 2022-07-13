@@ -3,16 +3,12 @@
 	desc = "Rain falling down the surface."
 
 	telegraph_message = SPAN_NOTICE("Dark clouds hover above and you feel humidity in the air..")
-	telegraph_duration = 300
 	telegraph_skyblock = 0.2
 
 	weather_message = SPAN_NOTICE("Rain starts to fall down..")
 	weather_overlay = "rain"
-	weather_duration_lower = 600
-	weather_duration_upper = 1500
 	weather_skyblock = 0.4
 
-	end_duration = 100
 	end_message = SPAN_NOTICE("The rain stops...")
 	end_skyblock = 0.2
 

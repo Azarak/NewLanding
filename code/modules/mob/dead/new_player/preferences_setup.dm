@@ -10,7 +10,6 @@
 	else
 		gender = pick(MALE,FEMALE,PLURAL)
 	age = rand(AGE_MIN,AGE_MAX)
-	backpack = random_backpack()
 	jumpsuit_style = pick(GLOB.jumpsuitlist)
 	set_skin_tone(random_skin_tone())
 	if(gender in list(MALE, FEMALE))

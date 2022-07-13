@@ -1,10 +1,10 @@
 /*****************************Coin********************************/
 
 /obj/item/stack/coin
+	abstract_type = /obj/item/stack/coin
 	icon = 'icons/obj/economy.dmi'
 	name = "coins"
 	icon_state = "coin"
-	abstract_type = /obj/item/stack/coin
 	full_w_class = WEIGHT_CLASS_SMALL
 	max_amount = 20
 	singular_name = "coin"

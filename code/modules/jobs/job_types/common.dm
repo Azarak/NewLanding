@@ -16,6 +16,7 @@
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
 	belt = /obj/item/cutlass
+	back = /obj/item/storage/bag
 
 /datum/job/crafstman
 	title = "Craftsman"
@@ -35,6 +36,7 @@
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
 	belt = /obj/item/cutlass
+	back = /obj/item/storage/bag
 
 /datum/job/deckguard
 	title = "Deckguard"
@@ -54,6 +56,7 @@
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
 	belt = /obj/item/cutlass
+	back = /obj/item/storage/bag
 
 /datum/job/pirate
 	title = "Pirate"
@@ -73,6 +76,7 @@
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
 	belt = /obj/item/cutlass
+	back = /obj/item/storage/bag
 
 /datum/job/shaman
 	title = "Shaman"
@@ -92,3 +96,4 @@
 	shoes = /obj/item/clothing/shoes/leather
 	l_pocket = /obj/item/storage/pouch/random_commoner
 	belt = /obj/item/cutlass
+	back = /obj/item/storage/bag

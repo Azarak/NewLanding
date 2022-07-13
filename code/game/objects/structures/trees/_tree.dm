@@ -130,7 +130,7 @@
 	. = ..()
 	. += SPAN_NOTICE("You could roll the log around by dragging it with your mouse.")
 
-/obj/structure/tree_log/mouse_drop_onto(atom/dropped, mob/user)
+/obj/structure/tree_log/mouse_drop_onto(atom/dropped, mob/user, params)
 	. = ..()
 	if(.)
 		return

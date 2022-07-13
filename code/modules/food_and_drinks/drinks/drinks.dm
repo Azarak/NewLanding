@@ -160,26 +160,3 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/ale = 30)
 	foodtype = GRAIN | ALCOHOL
 	custom_price = PAYCHECK_EASY
-
-//////////////////////////drinkingglass and shaker//
-//Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
-// itself), in Chemistry-Recipes.dm (for the reaction that changes the components into the drink), and here (for the drinking glass
-// icon states.
-
-/obj/item/reagent_containers/food/drinks/shaker
-	name = "shaker"
-	desc = "A metal shaker to mix drinks in."
-	icon_state = "shaker"
-	custom_materials = list(/datum/material/iron=1500)
-	amount_per_transfer_from_this = 10
-	volume = 100
-	isGlass = FALSE
-
-/obj/item/reagent_containers/food/drinks/flask
-	name = "flask"
-	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
-	custom_price = PAYCHECK_HARD * 2
-	icon_state = "flask"
-	custom_materials = list(/datum/material/iron=250)
-	volume = 60
-	isGlass = FALSE

@@ -399,7 +399,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["body_type"], body_type)
 	READ_FILE(S["age"], age)
 	READ_FILE(S["skin_tone"], skin_tone)
-	READ_FILE(S["backpack"], backpack)
 	READ_FILE(S["jumpsuit_style"], jumpsuit_style)
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["playtime_reward_cloak"], playtime_reward_cloak)
@@ -489,7 +488,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	skin_tone = sanitize_inlist(skin_tone, GLOB.skin_tones)
-	backpack = sanitize_inlist(backpack, GLOB.backpacklist, initial(backpack))
 	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list_save, initial(uplink_spawn_loc))
 	playtime_reward_cloak = sanitize_integer(playtime_reward_cloak)
@@ -584,7 +582,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["body_type"] , body_type)
 	WRITE_FILE(S["age"] , age)
 	WRITE_FILE(S["skin_tone"] , skin_tone)
-	WRITE_FILE(S["backpack"] , backpack)
 	WRITE_FILE(S["jumpsuit_style"] , jumpsuit_style)
 	WRITE_FILE(S["uplink_loc"] , uplink_spawn_loc)
 	WRITE_FILE(S["playtime_reward_cloak"] , playtime_reward_cloak)

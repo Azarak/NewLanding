@@ -20,7 +20,7 @@
 	if(car_traits & CAN_KIDNAP)
 		initialize_controller_action_type(/datum/action/vehicle/sealed/dump_kidnapped_mobs, VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/sealed/car/mouse_dropped(atom/dropping, mob/M)
+/obj/vehicle/sealed/car/mouse_dropped(atom/dropping, mob/M, params)
 	if(M.stat != CONSCIOUS || (HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !is_driver(M)))
 		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)

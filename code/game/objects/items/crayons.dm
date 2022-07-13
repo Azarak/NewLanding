@@ -527,53 +527,6 @@
 	paint_color = rgb(rand(0,255), rand(0,255), rand(0,255))
 	. = ..()
 
-/*
- * Crayon Box
- */
-
-/obj/item/storage/crayons
-	name = "box of crayons"
-	desc = "A box of crayons for all your rune drawing needs."
-	icon = 'icons/obj/crayons.dmi'
-	icon_state = "crayonbox"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/storage/crayons/Initialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 7
-	STR.set_holdable(list(/obj/item/toy/crayon))
-
-/obj/item/storage/crayons/PopulateContents()
-	new /obj/item/toy/crayon/red(src)
-	new /obj/item/toy/crayon/orange(src)
-	new /obj/item/toy/crayon/yellow(src)
-	new /obj/item/toy/crayon/green(src)
-	new /obj/item/toy/crayon/blue(src)
-	new /obj/item/toy/crayon/purple(src)
-	new /obj/item/toy/crayon/black(src)
-	update_appearance()
-
-/obj/item/storage/crayons/update_overlays()
-	. = ..()
-	for(var/obj/item/toy/crayon/crayon in contents)
-		. += mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color)
-
-/obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		switch(C.crayon_color)
-			if("mime")
-				to_chat(usr, SPAN_WARNING("This crayon is too sad to be contained in this box!"))
-				return
-			if("rainbow")
-				to_chat(usr, SPAN_WARNING("This crayon is too powerful to be contained in this box!"))
-				return
-		if(istype(W, /obj/item/toy/crayon/spraycan))
-			to_chat(user, SPAN_WARNING("Spraycans are not crayons!"))
-			return
-	return ..()
-
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan

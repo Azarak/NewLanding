@@ -171,8 +171,8 @@
 				deconstruct(TRUE, 1)
 			return
 
-	if(istype(I, /obj/item/storage/bag/tray))
-		var/obj/item/storage/bag/tray/T = I
+	if(istype(I, /obj/item/storage/tray))
+		var/obj/item/storage/tray/T = I
 		if(T.contents.len > 0) // If the tray isn't empty
 			for(var/x in T.contents)
 				var/obj/item/item = x
@@ -535,7 +535,7 @@
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
 		return TRUE
 
-/obj/structure/rack/mouse_dropped(obj/O, mob/user)
+/obj/structure/rack/mouse_dropped(obj/O, mob/user, params)
 	. = ..()
 	if ((!( istype(O, /obj/item) ) || user.get_active_held_item() != O))
 		return

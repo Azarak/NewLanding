@@ -20,7 +20,6 @@
 	var/age = 30 //Player's age
 
 	//consider updating /mob/living/carbon/human/copy_clothing_prefs() if adding more of these
-	var/backpack = DBACKPACK //Which backpack type the player has chosen.
 	var/jumpsuit_style = PREF_SUIT //suit/skirt
 
 	//Equipment slots

@@ -68,7 +68,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/real_name //our character's name
 	var/gender = MALE //gender of character (well duh)
 	var/age = 30 //age of character
-	var/backpack = DBACKPACK //backpack type
 	var/jumpsuit_style = PREF_SUIT //suit/skirt
 	var/skin_tone = "caucasian1" //Skin color
 	var/datum/species/pref_species
@@ -481,8 +480,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<table width='100%'><tr><td width='24%' valign='top'>"
 
 					dat += "<br><b>Jumpsuit Style:</b><BR><a href ='?_src_=prefs;preference=suit;task=input'>[jumpsuit_style]</a>"
-
-					dat += "<br><b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[backpack]</a>"
 
 					if((HAS_FLESH in pref_species.species_traits) || (HAS_BONE in pref_species.species_traits))
 						dat += "<BR><b>Temporal Scarring:</b><BR><a href='?_src_=prefs;preference=persistent_scars'>[(persistent_scars) ? "Enabled" : "Disabled"]</A>"
@@ -1621,8 +1618,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					set_skin_tone(random_skin_tone())
 				if("species")
 					random_species()
-				if("bag")
-					backpack = pick(GLOB.backpacklist)
 				if("suit")
 					jumpsuit_style = pick(GLOB.jumpsuitlist)
 				if("all")
@@ -1923,11 +1918,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_outfit = valid_paths[new_outfit]
 					if(new_outfit)
 						brief_outfit = new_outfit
-
-				if("bag")
-					var/new_backpack = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backpacklist
-					if(new_backpack)
-						backpack = new_backpack
 
 				if("suit")
 					needs_update = TRUE
@@ -2391,8 +2381,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.body_type = body_type
 
 	character.skin_tone = skin_tone
-
-	character.backpack = backpack
 
 	character.jumpsuit_style = jumpsuit_style
 

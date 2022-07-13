@@ -191,11 +191,8 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("backpack", /obj/item/storage/backpack, 4), \
 	new/datum/stack_recipe("satchel", /obj/item/storage/backpack/satchel, 4), \
-	new/datum/stack_recipe("duffel bag", /obj/item/storage/backpack/duffelbag, 6), \
 	null, \
-	new/datum/stack_recipe("plant bag", /obj/item/storage/bag/plants, 4), \
-	new/datum/stack_recipe("book bag", /obj/item/storage/bag/books, 4), \
-	new/datum/stack_recipe("mining satchel", /obj/item/storage/bag/ore, 4), \
+	new/datum/stack_recipe("bag", /obj/item/storage/bag, 4), \
 	null, \
 	new/datum/stack_recipe("improvised gauze", /obj/item/stack/medical/gauze/improvised, 1, 2, 6), \
 	new/datum/stack_recipe("rag", /obj/item/reagent_containers/rag, 1), \

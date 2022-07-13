@@ -13,13 +13,13 @@
 /datum/unit_test/harm_melee/Run()
 	var/mob/living/carbon/human/tider = allocate(/mob/living/carbon/human)
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
-	var/obj/item/storage/toolbox/toolbox = allocate(/obj/item/storage/toolbox)
+	var/obj/item/cutlass/cutlass = allocate(/obj/item/cutlass)
 
-	tider.put_in_active_hand(toolbox, forced = TRUE)
+	tider.put_in_active_hand(cutlass, forced = TRUE)
 	tider.set_combat_mode(TRUE)
-	victim.attackby(toolbox, tider)
+	victim.attackby(cutlass, tider)
 
-	TEST_ASSERT(victim.getBruteLoss() > 0, "Victim took no brute damage after being hit by a toolbox")
+	TEST_ASSERT(victim.getBruteLoss() > 0, "Victim took no brute damage after being hit by a cutlass")
 
 /datum/unit_test/harm_different_damage/Run()
 	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human)
@@ -55,15 +55,15 @@
 /datum/unit_test/attack_chain/Run()
 	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human)
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
-	var/obj/item/storage/toolbox/toolbox = allocate(/obj/item/storage/toolbox)
+	var/obj/item/cutlass/cutlass = allocate(/obj/item/cutlass)
 
-	RegisterSignal(toolbox, COMSIG_ITEM_PRE_ATTACK, .proc/pre_attack_hit)
-	RegisterSignal(toolbox, COMSIG_ITEM_ATTACK, .proc/attack_hit)
-	RegisterSignal(toolbox, COMSIG_ITEM_AFTERATTACK, .proc/post_attack_hit)
+	RegisterSignal(cutlass, COMSIG_ITEM_PRE_ATTACK, .proc/pre_attack_hit)
+	RegisterSignal(cutlass, COMSIG_ITEM_ATTACK, .proc/attack_hit)
+	RegisterSignal(cutlass, COMSIG_ITEM_AFTERATTACK, .proc/post_attack_hit)
 
-	attacker.put_in_active_hand(toolbox, forced = TRUE)
+	attacker.put_in_active_hand(cutlass, forced = TRUE)
 	attacker.set_combat_mode(TRUE)
-	toolbox.melee_attack_chain(attacker, victim)
+	cutlass.melee_attack_chain(attacker, victim)
 
 	TEST_ASSERT(pre_attack_hit, "Pre-attack signal was not fired")
 	TEST_ASSERT(attack_hit, "Attack signal was not fired")
@@ -72,9 +72,9 @@
 /datum/unit_test/disarm/Run()
 	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human)
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
-	var/obj/item/storage/toolbox/toolbox = allocate(/obj/item/storage/toolbox)
+	var/obj/item/cutlass/cutlass = allocate(/obj/item/cutlass)
 
-	victim.put_in_active_hand(toolbox, forced = TRUE)
+	victim.put_in_active_hand(cutlass, forced = TRUE)
 
 	var/obj/structure/barricade/dense_object = allocate(/obj/structure/barricade)
 
@@ -89,7 +89,7 @@
 
 	TEST_ASSERT_EQUAL(victim.loc.x, run_loc_floor_bottom_left.x + 2, "Victim wasn't moved back after being pushed")
 	TEST_ASSERT(!victim.has_status_effect(STATUS_EFFECT_KNOCKDOWN), "Victim was knocked down despite not being against a wall")
-	TEST_ASSERT_EQUAL(victim.get_active_held_item(), toolbox, "Victim dropped toolbox despite not being against a wall")
+	TEST_ASSERT_EQUAL(victim.get_active_held_item(), cutlass, "Victim dropped cutlass despite not being against a wall")
 
 	attacker.forceMove(get_step(attacker, EAST))
 
@@ -98,4 +98,4 @@
 
 	TEST_ASSERT_EQUAL(victim.loc.x, run_loc_floor_bottom_left.x + 2, "Victim was moved after being pushed against a wall")
 	TEST_ASSERT(victim.has_status_effect(STATUS_EFFECT_KNOCKDOWN), "Victim was not knocked down after being pushed against a wall")
-	TEST_ASSERT_EQUAL(victim.get_active_held_item(), null, "Victim didn't drop toolbox after being pushed against a wall")
+	TEST_ASSERT_EQUAL(victim.get_active_held_item(), null, "Victim didn't drop cutlass after being pushed against a wall")

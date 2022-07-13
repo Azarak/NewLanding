@@ -63,16 +63,6 @@ GLOBAL_LIST_INIT(security_depts_prefs, sortList(list(
 	SEC_DEPT_SUPPLY,
 )))
 
-	//Backpacks
-#define GBACKPACK "Grey Backpack"
-#define GSATCHEL "Grey Satchel"
-#define GDUFFELBAG "Grey Duffel Bag"
-#define LSATCHEL "Leather Satchel"
-#define DBACKPACK "Department Backpack"
-#define DSATCHEL "Department Satchel"
-#define DDUFFELBAG "Department Duffel Bag"
-GLOBAL_LIST_INIT(backpacklist, list(DBACKPACK, DSATCHEL, DDUFFELBAG, GBACKPACK, GSATCHEL, GDUFFELBAG, LSATCHEL))
-
 	//Suit/Skirt
 #define PREF_SUIT "Jumpsuit"
 #define PREF_SKIRT "Jumpskirt"
